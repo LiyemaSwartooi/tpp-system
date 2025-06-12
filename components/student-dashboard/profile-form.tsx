@@ -512,13 +512,14 @@ export function ProfileForm() {
 
   const validateEssay = (essay: string): boolean => {
     if (!essay || essay.trim() === '') return false;
-    const wordCount = essay.trim().split(/\s+/).length;
+    const wordCount = countWords(essay);
     return wordCount >= 300 && wordCount <= 500;
   };
 
   // Function to count words in a string
   const countWords = (text: string): number => {
-    return text.trim().split(/\s+/).length;
+    if (!text || text.trim() === '') return 0;
+    return text.trim().split(/\s+/).filter(word => word.length > 0).length;
   };
 
   // Update handleSubmit to include new validations
