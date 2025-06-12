@@ -10,7 +10,7 @@ import { ProfileForm } from "@/components/student-dashboard/profile-form"
 import { InputForm } from "@/components/student-dashboard/input-form"
 import { PerformanceSummary } from "@/components/student-dashboard/performance-summary"
 import { supabase } from "@/lib/supabase"
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createBrowserClient } from '@supabase/ssr'
 import { PerformanceTrends } from '@/components/student-dashboard/performance-trends'
 import { ErrorBoundary, DashboardErrorBoundary } from "@/components/ui/error-boundary"
 import { 
@@ -73,7 +73,10 @@ const allSubjects: AllSubject[] = [
 
 export default function StudentDashboard() {
   const router = useRouter()
-  const supabase = createClientComponentClient()
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
   const [activeTab, setActiveTab] = useState("profile")
   const [isLoading, setIsLoading] = useState(false)
   const [userInfo, setUserInfo] = useState<UserInfo>({

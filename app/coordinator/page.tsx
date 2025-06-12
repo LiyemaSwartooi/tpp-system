@@ -12,7 +12,7 @@ import { StudentTable } from "@/components/coordinator-dashboard/student-table"
 import { StudentDetails } from "@/components/coordinator-dashboard/student-details"
 import { PasswordManagement } from "@/components/coordinator-dashboard/password-management"
 import { type StatusKey, type Student, type StudentSubject } from "@/components/coordinator-dashboard"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createBrowserClient } from "@supabase/ssr"
 import { ErrorBoundary, DashboardErrorBoundary } from "@/components/ui/error-boundary"
 import { 
   DataLoading, 
@@ -57,7 +57,10 @@ export default function CoordinatorDashboard() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isSearching, setIsSearching] = useState(false)
-  const supabase = createClientComponentClient()
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
 
   // Sort state
   const [sortBy, setSortBy] = useState<"name" | "school" | "average" | "status">("name");

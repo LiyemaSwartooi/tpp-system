@@ -9,7 +9,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Upload, FileText, Loader2, Download, X, User, Mail, Home, Star, Globe, ChevronDown, ChevronUp, AlertCircle, CheckCircle, XCircle, Ban, FolderOpen, Trash2, Edit3, PartyPopper } from "lucide-react"
 import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card"
 import { supabase } from '@/lib/supabase'
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createBrowserClient } from '@supabase/ssr'
 import { Database } from '@/types/supabase'
 import { useRouter } from 'next/navigation'
 import { toast } from "sonner"
@@ -95,7 +95,10 @@ type DatabaseProfile = {
 
 export function ProfileForm() {
   const router = useRouter()
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createBrowserClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
   const [isLoading, setIsLoading] = useState(true)
   const [isUploading, setIsUploading] = useState(false)
   const [uploadProgress, setUploadProgress] = useState(0)
@@ -1428,7 +1431,7 @@ export function ProfileForm() {
                         <p className="text-sm text-gray-500">
                           Word count: {countWords(profile.original_essay || '')} / 300-500 words
                         </p>
-                        {getFieldError('original_essay') && (
+                      {getFieldError('original_essay') && (
                           <p className="text-sm text-red-500">
                             {countWords(profile.original_essay || '') < 300 
                               ? 'Essay must be at least 300 words' 
@@ -1436,7 +1439,7 @@ export function ProfileForm() {
                                 ? 'Essay cannot exceed 500 words'
                                 : 'Essay is required'}
                           </p>
-                        )}
+                      )}
                       </div>
                     </div>
                   </div>

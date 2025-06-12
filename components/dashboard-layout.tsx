@@ -7,7 +7,7 @@ import { LogOut, ChevronLeft, ChevronRight, User, Menu } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
+import { createBrowserClient } from "@supabase/ssr"
 
 type SidebarContextType = {
   isCollapsed: boolean
@@ -47,7 +47,10 @@ export function DashboardLayout({ children, sidebarContent, userInfo, portalType
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false)
   const [user, setUser] = useState(userInfo)
   const router = useRouter()
-  const supabase = createClientComponentClient()
+  const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
 
   useEffect(() => {
     const fetchUser = async () => {

@@ -6,7 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { AlertCircle, Trash2, Loader2 } from "lucide-react"
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { createBrowserClient } from '@supabase/ssr'
 import { Database } from '@/types/supabase'
 import { toast } from "sonner"
 import type { Subject } from "./types"
@@ -35,7 +35,10 @@ const getLevelPercentageRange = (level: number) => {
 
 export const SubjectTable: React.FC<SubjectTableProps> = ({ subjects, selectedTerm, isSubmitted, setSubjects }) => {
   const [deletingSubjects, setDeletingSubjects] = useState<Set<string>>(new Set())
-  const supabase = createClientComponentClient<Database>()
+  const supabase = createBrowserClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
   const termSubjects = subjects.filter((s) => s.term === selectedTerm)
 
   const removeSubject = async (id: string) => {
