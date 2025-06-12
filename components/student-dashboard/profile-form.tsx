@@ -301,7 +301,7 @@ export function ProfileForm() {
       case 'household_members':
         return !value || !validateHouseholdMembers(value as number);
       case 'original_essay':
-        return !value || (typeof value === 'string' && value.trim() === '');
+        return !value || !validateEssay(value as string);
       default:
         return !value || 
                (Array.isArray(value) && value.length === 0) ||
@@ -508,8 +508,14 @@ export function ProfileForm() {
   };
 
   const validateEssay = (essay: string): boolean => {
-    // Removed word count validation as per user request.
-    return true;
+    if (!essay || essay.trim() === '') return false;
+    const wordCount = essay.trim().split(/\s+/).length;
+    return wordCount >= 300 && wordCount <= 500;
+  };
+
+  // Function to count words in a string
+  const countWords = (text: string): number => {
+    return text.trim().split(/\s+/).length;
   };
 
   // Update handleSubmit to include new validations
@@ -573,10 +579,9 @@ export function ProfileForm() {
         return;
       }
 
-      // Validate essay - NO LONGER HAS WORD COUNT CHECK
+      // Validate essay
       if (!profile.original_essay || !validateEssay(profile.original_essay)) {
-        // This will now only check for emptiness, as validateEssay always returns true for non-empty string.
-        toast.error('Essay is required.');
+        toast.error('Essay must be between 300 and 500 words');
         return;
       }
 
@@ -1093,11 +1098,11 @@ export function ProfileForm() {
                 <section className="p-4 pt-0 bg-white rounded-b">
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="last_name">Surname</Label>
+                      <Label htmlFor="last_name">Surname <span className="text-red-500">*</span></Label>
                       <Input id="last_name" name="last_name" value={profile.last_name || ''} onChange={handleChange} required />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="first_name">First Name</Label>
+                      <Label htmlFor="first_name">First Name <span className="text-red-500">*</span></Label>
                       <Input id="first_name" name="first_name" value={profile.first_name || ''} onChange={handleChange} required />
                     </div>
                   </div>
@@ -1196,7 +1201,7 @@ export function ProfileForm() {
                 <section className="p-4 pt-0 bg-white rounded-b">
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="id_certificate">ID/Birth Certificate Number</Label>
+                      <Label htmlFor="id_certificate">ID/Birth Certificate Number <span className="text-red-500">*</span></Label>
                       <Input
                         id="id_certificate"
                         name="id_certificate"
@@ -1211,7 +1216,7 @@ export function ProfileForm() {
                       )}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="learner_cell_phone">Cell Phone Number</Label>
+                      <Label htmlFor="learner_cell_phone">Cell Phone Number <span className="text-red-500">*</span></Label>
                       <Input
                         id="learner_cell_phone"
                         name="learner_cell_phone"
@@ -1243,7 +1248,7 @@ export function ProfileForm() {
                       )}
                     </div>
             <div className="space-y-2">
-              <Label htmlFor="parent_guardian_name">Parent/Guardian Name</Label>
+              <Label htmlFor="parent_guardian_name">Parent/Guardian Name <span className="text-red-500">*</span></Label>
                       <Input 
                         id="parent_guardian_name" 
                         name="parent_guardian_name" 
@@ -1260,7 +1265,7 @@ export function ProfileForm() {
                   </div>
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="parent_guardian_contact">Parent/Guardian Cell Phone Number</Label>
+                      <Label htmlFor="parent_guardian_contact">Parent/Guardian Cell Phone Number <span className="text-red-500">*</span></Label>
                       <Input 
                         id="parent_guardian_contact" 
                         name="parent_guardian_contact" 
@@ -1291,7 +1296,7 @@ export function ProfileForm() {
                     </div>
                   </div>
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4">
-                    <Label htmlFor="email">Learner Email Address</Label>
+                    <Label htmlFor="email">Learner Email Address <span className="text-red-500">*</span></Label>
                     <Input 
                       id="email" 
                       name="email" 
@@ -1338,7 +1343,7 @@ export function ProfileForm() {
                       </div>
                     </div>
             <div className="space-y-2">
-                      <Label htmlFor="household_members">Number of Household Members</Label>
+                      <Label htmlFor="household_members">Number of Household Members <span className="text-red-500">*</span></Label>
                       <Input
                         id="household_members"
                         name="household_members"
@@ -1356,7 +1361,7 @@ export function ProfileForm() {
                   </div>
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4">
                     <Label>Family Members' Occupation and Education</Label>
-                    <Textarea id="family_members_occupation" name="family_members_occupation" value={profile.family_members_occupation || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="Example: A. Father/Guardian | Soldier | University PhD\nB. Mother/Guardian | Teacher | Diploma\nC. Sister | Student | Grade 12" rows={3} />
+                    <Textarea id="family_members_occupation" name="family_members_occupation" value={profile.family_members_occupation || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="Example: A. Father/Guardian | Soldier | University PhD B. Mother/Guardian | Teacher | Diploma C. Sister | Student | Grade 12" rows={3} />
                   </div>
                 </section>
               )}
@@ -1384,44 +1389,55 @@ export function ProfileForm() {
                   </div>
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="career_interest">Career(s) or job(s) interested in and why</Label>
+                      <Label htmlFor="career_interest">Career(s) or job(s) interested in and why <span className="text-red-500">*</span></Label>
                       <Textarea id="career_interest" name="career_interest" value={profile.career_interest || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="What career(s) or job(s) are you interested in and why?" rows={2} />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="personality_statements">Three statements about your personality/character</Label>
+                      <Label htmlFor="personality_statements">Three statements about your personality/character <span className="text-red-500">*</span></Label>
                       <Textarea id="personality_statements" name="personality_statements" value={profile.personality_statements || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="Write three statements that describe your personality or character..." rows={2} />
                     </div>
                   </div>
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="successful_community_member">Describe a successful community member and why</Label>
+                      <Label htmlFor="successful_community_member">Describe a successful community member and why <span className="text-red-500">*</span></Label>
                       <Textarea id="successful_community_member" name="successful_community_member" value={profile.successful_community_member || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="Describe any member of your community who you consider to be successful and why..." rows={2} />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="tips_for_friend">Three tips for a friend to succeed in TPP</Label>
+                      <Label htmlFor="tips_for_friend">Three tips for a friend to succeed in TPP <span className="text-red-500">*</span></Label>
                       <Textarea id="tips_for_friend" name="tips_for_friend" value={profile.tips_for_friend || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="List three tips that you would give to a friend to help them succeed in a programme like the TPP..." rows={2} />
                     </div>
                   </div>
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="kimberley_challenges">Challenges you expect to face in Kimberley</Label>
+                      <Label htmlFor="kimberley_challenges">Challenges you expect to face in Kimberley <span className="text-red-500">*</span></Label>
                       <Textarea id="kimberley_challenges" name="kimberley_challenges" value={profile.kimberley_challenges || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="What challenges would you expect to face staying in Kimberley?" rows={2} />
                     </div>
             <div className="space-y-2 md:col-span-2">
-                      <Label htmlFor="original_essay">Original Essay (300–500 words)</Label>
+                      <Label htmlFor="original_essay">Original Essay (300–500 words) <span className="text-red-500">*</span></Label>
                       <Textarea
                         id="original_essay"
                         name="original_essay"
                         value={profile.original_essay || ''}
                         onChange={handleChange}
                         onKeyDown={handleTextareaKeyDown}
-                        placeholder="Describe your community and what influence it has on you.\nWhy did you apply to this programme, and how do you think that being selected to participate in this programme would add value to your life?"
+                        placeholder="Describe your community and what influence it has on you. Why did you apply to this programme, and how do you think that being selected to participate in this programme would add value to your life?"
                         rows={5}
                         className={getFieldError('original_essay') ? "border-red-500" : ""}
                       />
-                      {getFieldError('original_essay') && (
-                        <p className="text-sm text-red-500">{getFieldHelperText('original_essay')}</p>
-                      )}
+                      <div className="flex justify-between items-center">
+                        <p className="text-sm text-gray-500">
+                          Word count: {countWords(profile.original_essay || '')} / 300-500 words
+                        </p>
+                        {getFieldError('original_essay') && (
+                          <p className="text-sm text-red-500">
+                            {countWords(profile.original_essay || '') < 300 
+                              ? 'Essay must be at least 300 words' 
+                              : countWords(profile.original_essay || '') > 500 
+                                ? 'Essay cannot exceed 500 words'
+                                : 'Essay is required'}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </section>

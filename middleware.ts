@@ -81,6 +81,11 @@ const publicPaths = [
   '/privacy-policy',
   '/terms-of-service',
   '/contact-support',
+  // Auth routes
+  '/auth/forgot-password',
+  '/auth/reset-password',
+  '/auth/login',
+  '/auth/signup',
   // Allow all files in the public directory
   '/*.jpg',
   '/*.jpeg',
@@ -125,7 +130,8 @@ export const config = {
      * - Static files (txt, json, xml, etc.)
      * - API routes
      * - Public files
+     * - Auth routes
      */
-    '/((?!_next/static|_next/image|.*\\.(?:jpg|jpeg|png|gif|svg|ico|webp|avif|txt|json|xml)$|api/|access-portal|access-denied|about|privacy-policy|terms-of-service|contact-support).*)',
+    '/((?!_next/static|_next/image|.*\\.(?:jpg|jpeg|png|gif|svg|ico|webp|avif|txt|json|xml)$|api/|auth/|access-portal|access-denied|about|privacy-policy|terms-of-service|contact-support).*)',
   ],
 }

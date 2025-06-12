@@ -142,14 +142,15 @@ export default function StudentDashboard() {
           if (!value || value.length === 0) {
             return 'Please add at least one subject'
           }
-          if (value.length > 7) {
-            return 'Maximum 7 subjects allowed'
+          
+          // Check minimum subjects requirement for current term
+          const currentTermSubjects = value.filter(s => s.term === selectedTerm)
+          if (currentTermSubjects.length < 6) {
+            return `Please add at least 6 subjects for Term ${selectedTerm}`
           }
           
-          // Check that subjects for the current term have required data
-          const currentTermSubjects = value.filter(s => s.term === selectedTerm)
-          if (currentTermSubjects.length === 0) {
-            return 'Please add at least one subject for the current term'
+          if (currentTermSubjects.length > 9) {
+            return 'Maximum 9 subjects allowed per term'
           }
           
           // Check that all current term subjects have level, finalPercentage, and gradeAverage
@@ -704,8 +705,17 @@ export default function StudentDashboard() {
     
     // Check if we have subjects for the current term
     const currentTermSubjects = subjects.filter(s => s.term === selectedTerm)
-    if (currentTermSubjects.length === 0) {
-      toast.error("Please add at least one subject before submitting.", {
+    if (currentTermSubjects.length < 6) {
+      toast.error(`Please add at least 6 subjects for Term ${selectedTerm}`, {
+        position: 'top-right',
+        duration: 4000,
+        icon: <XCircle className="h-4 w-4" />,
+      })
+      return
+    }
+
+    if (currentTermSubjects.length > 9) {
+      toast.error("Maximum 9 subjects allowed per term", {
         position: 'top-right',
         duration: 4000,
         icon: <XCircle className="h-4 w-4" />,

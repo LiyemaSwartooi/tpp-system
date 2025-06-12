@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Loader2, CheckCircle, LogOut, AlertCircle, PartyPopper, XCircle } from "lucide-react"
+import { Loader2, CheckCircle, LogOut, AlertCircle, PartyPopper, XCircle, Eye, EyeOff } from "lucide-react"
 import { toast } from "sonner"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { ArrowLeft, BookOpen, Users, BarChart3 } from "lucide-react"
@@ -78,6 +78,9 @@ export default function AccessPortal() {
   const [activeTab, setActiveTab] = useState("signin")
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
+  const [showSignInPassword, setShowSignInPassword] = useState(false)
+  const [showSignUpPassword, setShowSignUpPassword] = useState(false)
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const router = useRouter()
   const supabase = createClientComponentClient<Database>({
     supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -497,7 +500,7 @@ export default function AccessPortal() {
                     <Input
                       id="email"
                       type="email"
-                      placeholder="john.doe@example.com"
+                      placeholder="Enter your email address"
                       className={signInForm.formState.errors.email ? "border-red-500 focus:border-red-500" : ""}
                       {...signInForm.register("email")}
                     />
@@ -531,18 +534,36 @@ export default function AccessPortal() {
 
                   <div>
                     <Label htmlFor="password">Password</Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="••••••••"
-                      className={signInForm.formState.errors.password ? "border-red-500 focus:border-red-500" : ""}
-                      {...signInForm.register("password")}
-                    />
+                    <div className="relative">
+                      <Input
+                        id="password"
+                        type={showSignInPassword ? "text" : "password"}
+                        placeholder="••••••••"
+                        className={signInForm.formState.errors.password ? "border-red-500 focus:border-red-500 pr-10" : "pr-10"}
+                        {...signInForm.register("password")}
+                      />
+                      <button
+                        type="button"
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                        onClick={() => setShowSignInPassword(!showSignInPassword)}
+                      >
+                        {showSignInPassword ? (
+                          <EyeOff className="h-4 w-4 text-gray-400 hover:text-gray-600" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-gray-400 hover:text-gray-600" />
+                        )}
+                      </button>
+                    </div>
                     {signInForm.formState.errors.password && (
                       <p className="text-red-500 text-xs mt-1">
                         {signInForm.formState.errors.password.message}
                       </p>
                     )}
+                    <div className="text-right">
+                      <Link href="/auth/forgot-password" className="text-sm text-red-600 hover:underline">
+                        Forgot password?
+                      </Link>
+                    </div>
                   </div>
 
                   {error && (
@@ -601,7 +622,7 @@ export default function AccessPortal() {
                       <Label htmlFor="firstName">First Name</Label>
                       <Input 
                         id="firstName" 
-                        placeholder="John" 
+                        placeholder="Enter your first name" 
                         className={signUpForm.formState.errors.firstName ? "border-red-500 focus:border-red-500" : ""}
                         {...signUpForm.register("firstName")} 
                       />
@@ -616,7 +637,7 @@ export default function AccessPortal() {
                       <Label htmlFor="lastName">Last Name</Label>
                       <Input 
                         id="lastName" 
-                        placeholder="Doe" 
+                        placeholder="Enter your last name" 
                         className={signUpForm.formState.errors.lastName ? "border-red-500 focus:border-red-500" : ""}
                         {...signUpForm.register("lastName")} 
                       />
@@ -633,7 +654,7 @@ export default function AccessPortal() {
                     <Input
                       id="email"
                       type="email"
-                      placeholder="john.doe@example.com"
+                      placeholder="Enter your email address"
                       className={signUpForm.formState.errors.email ? "border-red-500 focus:border-red-500" : ""}
                       {...signUpForm.register("email")}
                     />
@@ -646,13 +667,26 @@ export default function AccessPortal() {
 
                   <div>
                     <Label htmlFor="password">Password</Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="••••••••"
-                      className={signUpForm.formState.errors.password ? "border-red-500 focus:border-red-500" : ""}
-                      {...signUpForm.register("password")}
-                    />
+                    <div className="relative">
+                      <Input
+                        id="password"
+                        type={showSignUpPassword ? "text" : "password"}
+                        placeholder="••••••••"
+                        className={signUpForm.formState.errors.password ? "border-red-500 focus:border-red-500 pr-10" : "pr-10"}
+                        {...signUpForm.register("password")}
+                      />
+                      <button
+                        type="button"
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                        onClick={() => setShowSignUpPassword(!showSignUpPassword)}
+                      >
+                        {showSignUpPassword ? (
+                          <EyeOff className="h-4 w-4 text-gray-400 hover:text-gray-600" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-gray-400 hover:text-gray-600" />
+                        )}
+                      </button>
+                    </div>
                     {signUpForm.formState.errors.password && (
                       <p className="text-red-500 text-xs mt-1">
                         {signUpForm.formState.errors.password.message}
@@ -662,13 +696,26 @@ export default function AccessPortal() {
 
                   <div>
                     <Label htmlFor="confirmPassword">Confirm Password</Label>
-                    <Input
-                      id="confirmPassword"
-                      type="password"
-                      placeholder="••••••••"
-                      className={signUpForm.formState.errors.confirmPassword ? "border-red-500 focus:border-red-500" : ""}
-                      {...signUpForm.register("confirmPassword")}
-                    />
+                    <div className="relative">
+                      <Input
+                        id="confirmPassword"
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="••••••••"
+                        className={signUpForm.formState.errors.confirmPassword ? "border-red-500 focus:border-red-500 pr-10" : "pr-10"}
+                        {...signUpForm.register("confirmPassword")}
+                      />
+                      <button
+                        type="button"
+                        className="absolute inset-y-0 right-0 pr-3 flex items-center"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      >
+                        {showConfirmPassword ? (
+                          <EyeOff className="h-4 w-4 text-gray-400 hover:text-gray-600" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-gray-400 hover:text-gray-600" />
+                        )}
+                      </button>
+                    </div>
                     {signUpForm.formState.errors.confirmPassword && (
                       <p className="text-red-500 text-xs mt-1">
                         {signUpForm.formState.errors.confirmPassword.message}

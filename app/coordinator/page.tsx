@@ -10,6 +10,7 @@ import { Sidebar } from "@/components/coordinator-dashboard/sidebar"
 import { SummaryCards } from "@/components/coordinator-dashboard/summary-cards"
 import { StudentTable } from "@/components/coordinator-dashboard/student-table"
 import { StudentDetails } from "@/components/coordinator-dashboard/student-details"
+import { PasswordManagement } from "@/components/coordinator-dashboard/password-management"
 import { type StatusKey, type Student, type StudentSubject } from "@/components/coordinator-dashboard"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { ErrorBoundary, DashboardErrorBoundary } from "@/components/ui/error-boundary"
@@ -22,6 +23,7 @@ import {
   Spinner,
   PageLoading
 } from "@/components/ui/loading"
+import { AlertTriangle } from "lucide-react"
 import { 
   useFormValidation, 
   ValidationRules, 
@@ -510,6 +512,8 @@ export default function CoordinatorDashboard() {
                   </div>
                 </DashboardErrorBoundary>
               </>
+            ) : activeTab === "password-management" ? (
+              <PasswordManagement />
             ) : activeTab === "student-details" ? (
               <DashboardErrorBoundary>
                 <div className="bg-white rounded-lg shadow-sm border overflow-hidden">

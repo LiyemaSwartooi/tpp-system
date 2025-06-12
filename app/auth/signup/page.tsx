@@ -85,7 +85,7 @@ export default function SignupPage() {
                 <Label htmlFor="firstName">First Name</Label>
                 <Input
                   id="firstName"
-                  placeholder="John"
+                  placeholder="Enter your first name"
                   {...register("firstName")}
                   className={errors.firstName ? "border-red-500" : ""}
                 />
@@ -96,7 +96,7 @@ export default function SignupPage() {
                 <Label htmlFor="lastName">Last Name</Label>
                 <Input
                   id="lastName"
-                  placeholder="Doe"
+                  placeholder="Enter your last name"
                   {...register("lastName")}
                   className={errors.lastName ? "border-red-500" : ""}
                 />

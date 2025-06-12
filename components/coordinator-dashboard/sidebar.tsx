@@ -2,7 +2,7 @@
 
 import type React from "react"
 import { SidebarNavGroup, SidebarNavItem } from "@/components/dashboard-layout"
-import { Home, Users } from "lucide-react"
+import { Home, Users, Key } from "lucide-react"
 
 type SidebarProps = {
   activeTab: string
@@ -24,6 +24,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
           label="Student Performance"
           isActive={activeTab === "students" || activeTab === "student-details"}
           onClick={() => setActiveTab("overview")}
+        />
+        <SidebarNavItem
+          icon={<Key className="h-5 w-5" />}
+          label="Password Management"
+          isActive={activeTab === "password-management"}
+          onClick={() => setActiveTab("password-management")}
         />
       </SidebarNavGroup>
     </div>

@@ -43,15 +43,15 @@ export function ProfileForm({ user }: ProfileFormProps) {
   } = useForm<ProfileForm>({
     resolver: zodResolver(profileSchema),
     defaultValues: {
-      firstName: "John",
-      lastName: "Doe",
+      firstName: "",
+      lastName: "",
       email: user?.email || "",
-      phone: "+1 (555) 123-4567",
-      address: "123 University Ave, College Town, ST 12345",
-      bio: "Computer Science student passionate about software development and artificial intelligence.",
-      studentId: "CS2024001",
-      program: "Computer Science",
-      year: "Junior (3rd Year)",
+      phone: "",
+      address: "",
+      bio: "",
+      studentId: "",
+      program: "",
+      year: "",
     },
   })
 
