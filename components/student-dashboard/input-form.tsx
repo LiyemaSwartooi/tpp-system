@@ -176,7 +176,7 @@ export const InputForm: React.FC<InputFormProps> = ({
                          {selectedSchool && (
                <p className="text-xs text-gray-600 mt-2 flex items-center gap-1">
                  <CheckCircle className="h-3 w-3 text-green-600" />
-                 This school will be saved to your profile for consistency across all terms
+                 This school is saved to your profile for consistency across all terms
                </p>
              )}
           </div>

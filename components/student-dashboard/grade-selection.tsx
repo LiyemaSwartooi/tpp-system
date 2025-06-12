@@ -53,7 +53,7 @@ export const GradeSelection: React.FC<GradeSelectionProps> = ({
                      {grade && (
              <p className="text-xs text-gray-600 mt-1 flex items-center gap-1">
                <CheckCircle className="h-3 w-3 text-green-600" />
-               This grade will be automatically saved to your profile for consistency across all terms
+               This grade is automatically saved to your profile for consistency across all terms
              </p>
            )}
         </div>

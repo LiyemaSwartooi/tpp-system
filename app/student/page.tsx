@@ -572,7 +572,7 @@ export default function StudentDashboard() {
     setNewSubject("")
     
     // Notify user about grade change
-    toast.success(`Grade ${selectedGrade} selected. This will be saved to your profile.`, {
+            toast.success(`Grade ${selectedGrade} selected. This is saved to your profile.`, {
       position: 'top-right',
       duration: 3000,
       icon: <GraduationCap className="h-4 w-4" />,
@@ -588,7 +588,7 @@ export default function StudentDashboard() {
     const schoolLabel = selectedSchoolObj?.label || selectedSchoolValue
     
     // Notify user about school change
-    toast.success(`${schoolLabel} selected. This will be saved to your profile.`, {
+            toast.success(`${schoolLabel} selected. This is saved to your profile.`, {
       position: 'top-right',
       duration: 3000,
       icon: <School className="h-4 w-4" />,
