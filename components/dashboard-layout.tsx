@@ -122,7 +122,7 @@ export function DashboardLayout({ children, sidebarContent, userInfo, portalType
             "bg-white border-r border-gray-200 flex flex-col transition-all duration-300 relative",
             isCollapsed ? "w-[70px]" : "w-64",
             "hidden md:flex",
-            isMobileSidebarOpen && "flex w-64 absolute inset-y-0 left-0 z-50"
+            isMobileSidebarOpen && "flex w-80 sm:w-64 absolute inset-y-0 left-0 z-50 md:relative md:w-64"
           )}
         >
           {/* Toggle Button for Desktop */}
@@ -138,14 +138,14 @@ export function DashboardLayout({ children, sidebarContent, userInfo, portalType
           </button>
 
           {/* Sidebar Header */}
-          <div className="p-4 border-b h-16 flex items-center">
+          <div className="p-3 sm:p-4 border-b h-14 sm:h-16 flex items-center">
             <div className={cn("flex items-center", isCollapsed ? "justify-center" : "space-x-3")}>
-              <div className="w-10 h-10 bg-gradient-to-r from-red-600 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                <span className="text-white font-bold text-sm">TPP</span>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-r from-red-600 to-orange-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <span className="text-white font-bold text-xs sm:text-sm">TPP</span>
               </div>
               {!isCollapsed && (
                 <div>
-                  <h1 className="text-lg font-semibold">TPP System</h1>
+                  <h1 className="text-base sm:text-lg font-semibold">TPP System</h1>
                   <p className="text-xs text-gray-500">{portalType} Portal</p>
                 </div>
               )}
@@ -153,10 +153,10 @@ export function DashboardLayout({ children, sidebarContent, userInfo, portalType
           </div>
 
           {/* Navigation */}
-          <div className="flex-1 py-6 overflow-hidden">{sidebarContent}</div>
+          <div className="flex-1 py-4 sm:py-6 overflow-hidden">{sidebarContent}</div>
 
           {/* Sidebar Footer */}
-          <div className="border-t p-4">
+          <div className="border-t p-3 sm:p-4">
             {isCollapsed ? (
               <div className="flex justify-center">
                 <Avatar className="bg-gradient-to-br from-red-500 to-orange-500 text-white">
@@ -197,20 +197,20 @@ export function DashboardLayout({ children, sidebarContent, userInfo, portalType
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden">
-          <header className="bg-white shadow-sm border-b h-16 flex items-center px-6">
+          <header className="bg-white shadow-sm border-b h-14 sm:h-16 flex items-center px-3 sm:px-6">
             <div className="flex items-center justify-between w-full">
               {/* Mobile Menu Button */}
               <button
                 onClick={toggleMobileSidebar}
                 className="md:hidden p-2 rounded-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500"
               >
-                <Menu className="h-6 w-6 text-gray-600" />
+                <Menu className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
               </button>
-              <h1 className="text-xl font-semibold">{title}</h1>
+              <h1 className="text-lg sm:text-xl font-semibold truncate">{title}</h1>
             </div>
           </header>
 
-          <main className="flex-1 overflow-auto p-6">{children}</main>
+          <main className="flex-1 overflow-auto p-2 sm:p-4 lg:p-6">{children}</main>
         </div>
       </div>
       {/* Mobile Sidebar Overlay */}

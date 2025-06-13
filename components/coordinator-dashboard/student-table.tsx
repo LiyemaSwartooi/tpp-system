@@ -473,12 +473,12 @@ export const StudentTable: React.FC<StudentTableProps> = ({
         </div>
       )}
 
-      {/* Desktop Table View */}
-      <div className="hidden lg:block overflow-x-auto">
+      {/* Table View - Same on Desktop and Mobile */}
+      <div className="overflow-x-auto">
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr className="border-b border-gray-200">
-              <th className="text-left py-3 px-6 font-medium text-gray-700 w-12">
+              <th className="text-left py-2 px-2 sm:py-3 sm:px-6 font-medium text-gray-700 w-8 sm:w-12">
                 <Checkbox
                   checked={isAllSelected}
                   onCheckedChange={handleSelectAll}
@@ -486,105 +486,106 @@ export const StudentTable: React.FC<StudentTableProps> = ({
                 />
               </th>
               <th
-                className="text-left py-3 px-6 font-medium text-gray-700 cursor-pointer hover:bg-gray-100 transition-colors"
+                className="text-left py-2 px-2 sm:py-3 sm:px-6 font-medium text-gray-700 cursor-pointer hover:bg-gray-100 transition-colors text-xs sm:text-sm"
                   onClick={() => onSort("name")}
                 >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-2">
                     <span>Student Name</span>
                   {sortBy === "name" && <span className="text-red-500">{sortDirection === "asc" ? "↑" : "↓"}</span>}
                 </div>
               </th>
               <th
-                className="text-left py-3 px-6 font-medium text-gray-700 cursor-pointer hover:bg-gray-100 transition-colors"
+                className="text-left py-2 px-2 sm:py-3 sm:px-6 font-medium text-gray-700 cursor-pointer hover:bg-gray-100 transition-colors text-xs sm:text-sm"
                 onClick={() => onSort("school")}
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-2">
                   <span>School</span>
                   {sortBy === "school" && <span className="text-red-500">{sortDirection === "asc" ? "↑" : "↓"}</span>}
                   </div>
                 </th>
-              <th className="text-left py-3 px-6 font-medium text-gray-700">Grade</th>
+              <th className="text-left py-2 px-2 sm:py-3 sm:px-6 font-medium text-gray-700 text-xs sm:text-sm">Grade</th>
                 <th
-                className="text-left py-3 px-6 font-medium text-gray-700 cursor-pointer hover:bg-gray-100 transition-colors"
+                className="text-left py-2 px-2 sm:py-3 sm:px-6 font-medium text-gray-700 cursor-pointer hover:bg-gray-100 transition-colors text-xs sm:text-sm"
                   onClick={() => onSort("average")}
                 >
-                <div className="flex items-center gap-2">
-                    <span>Term Average</span>
+                <div className="flex items-center gap-1 sm:gap-2">
+                    <span>Term Avg</span>
                   {sortBy === "average" && <span className="text-red-500">{sortDirection === "asc" ? "↑" : "↓"}</span>}
                   </div>
                 </th>
                 <th
-                className="text-left py-3 px-6 font-medium text-gray-700 cursor-pointer hover:bg-gray-100 transition-colors"
+                className="text-left py-2 px-2 sm:py-3 sm:px-6 font-medium text-gray-700 cursor-pointer hover:bg-gray-100 transition-colors text-xs sm:text-sm"
                   onClick={() => onSort("status")}
                 >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1 sm:gap-2">
                     <span>Status</span>
                   {sortBy === "status" && <span className="text-red-500">{sortDirection === "asc" ? "↑" : "↓"}</span>}
                   </div>
                 </th>
-              <th className="text-left py-3 px-6 font-medium text-gray-700">Actions</th>
+              <th className="text-left py-2 px-2 sm:py-3 sm:px-6 font-medium text-gray-700 text-xs sm:text-sm">Actions</th>
               </tr>
             </thead>
           <tbody className="divide-y divide-gray-200">
               {students.length > 0 ? (
                 students.map((student) => (
                 <tr key={student.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="py-4 px-6">
+                  <td className="py-2 px-2 sm:py-4 sm:px-6">
                     <Checkbox
                       checked={selectedStudents.has(student.id)}
                       onCheckedChange={() => handleSelectStudent(student.id)}
                       className="border-gray-400"
                     />
                   </td>
-                  <td className="py-4 px-6">
-                    <div className="flex items-center gap-3">
-                      <Avatar className="h-8 w-8 bg-red-100">
-                        <AvatarFallback className="text-red-600 text-sm">
+                  <td className="py-2 px-2 sm:py-4 sm:px-6">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <Avatar className="h-6 w-6 sm:h-8 sm:w-8 bg-red-100">
+                        <AvatarFallback className="text-red-600 text-xs sm:text-sm">
                           {student.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                           </AvatarFallback>
                         </Avatar>
-                      <div>
-                        <div className="font-medium text-gray-900">{student.name}</div>
-                        <div className="text-sm text-gray-500">{student.email}</div>
+                      <div className="min-w-0">
+                        <div className="font-medium text-gray-900 text-xs sm:text-sm truncate">{student.name}</div>
+                        <div className="text-xs text-gray-500 truncate hidden sm:block">{student.email}</div>
                       </div>
                     </div>
                   </td>
-                  <td className="py-4 px-6">
-                    <div className="text-sm text-gray-900">{student.school || 'Not specified'}</div>
+                  <td className="py-2 px-2 sm:py-4 sm:px-6">
+                    <div className="text-xs sm:text-sm text-gray-900 truncate">{student.school || 'Not specified'}</div>
                   </td>
-                  <td className="py-4 px-6">
-                    <div className="text-sm font-medium text-gray-900">
+                  <td className="py-2 px-2 sm:py-4 sm:px-6">
+                    <div className="text-xs sm:text-sm font-medium text-gray-900">
                       {student.grade || 'Not specified'}
                     </div>
                   </td>
-                  <td className="py-4 px-6">
-                                          <div className="text-sm font-semibold text-gray-900">{Math.round(student.average)}%</div>
+                  <td className="py-2 px-2 sm:py-4 sm:px-6">
+                    <div className="text-xs sm:text-sm font-semibold text-gray-900">{Math.round(student.average)}%</div>
                     </td>
-                  <td className="py-4 px-6">
+                  <td className="py-2 px-2 sm:py-4 sm:px-6">
                         <Badge
                       variant={
                         student.status === "Doing Well" ? "default" :
                         student.status === "Needs Support" ? "secondary" :
                         student.status === "At Risk" ? "destructive" : "outline"
                       }
-                      className={
+                      className={`text-xs ${
                         student.status === "Doing Well" ? "bg-green-100 text-green-800 hover:bg-green-200" :
                         student.status === "Needs Support" ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200" :
                         student.status === "At Risk" ? "bg-red-100 text-red-800 hover:bg-red-200" : 
                         "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                      }
+                      }`}
                         >
                           {student.status}
                         </Badge>
                   </td>
-                  <td className="py-4 px-6">
+                  <td className="py-2 px-2 sm:py-4 sm:px-6">
                         <Button
                       variant="outline"
                           size="sm"
                       onClick={() => onViewDetails(student)}
-                      className="text-red-600 border-red-200 hover:bg-red-50"
+                      className="text-red-600 border-red-200 hover:bg-red-50 text-xs sm:text-sm px-2 sm:px-3"
                         >
-                          View Details
+                          <span className="hidden sm:inline">View Details</span>
+                          <span className="sm:hidden">View</span>
                         </Button>
                     </td>
                   </tr>
@@ -594,7 +595,7 @@ export const StudentTable: React.FC<StudentTableProps> = ({
                 <td colSpan={7} className="py-8 text-center text-gray-500">
                   <div className="flex flex-col items-center gap-2">
                     <Users className="h-8 w-8 text-gray-300" />
-                    <p>No students match your search criteria</p>
+                    <p className="text-sm sm:text-base">No students match your search criteria</p>
                   </div>
                   </td>
                 </tr>
@@ -602,95 +603,6 @@ export const StudentTable: React.FC<StudentTableProps> = ({
             </tbody>
           </table>
         </div>
-
-      {/* Mobile Table View - Consistent with Desktop */}
-      <div className="lg:hidden">
-        {students.length > 0 ? (
-          <div className="space-y-3 p-3 sm:p-4">
-            {students.map((student) => (
-              <div key={student.id} className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200">
-                {/* Mobile Card */}
-                <div className="p-4">
-                  {/* Header: Checkbox + Student Info */}
-                  <div className="flex items-start gap-3 mb-3">
-                    <Checkbox
-                      checked={selectedStudents.has(student.id)}
-                      onCheckedChange={() => handleSelectStudent(student.id)}
-                      className="border-gray-400 flex-shrink-0 mt-1"
-                    />
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <Avatar className="h-8 w-8 bg-red-100 flex-shrink-0">
-                          <AvatarFallback className="text-red-600 text-xs font-medium">
-                            {student.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div className="min-w-0 flex-1">
-                          <div className="font-medium text-gray-900 text-sm truncate">{student.name}</div>
-                          <div className="text-xs text-gray-500 truncate">{student.email}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* School & Grade Info */}
-                  <div className="mb-3 pl-8">
-                    <div className="text-sm text-gray-600 truncate">{student.school || 'Not specified'}</div>
-                    <div className="text-xs text-gray-500">Grade: {student.grade || 'Not specified'}</div>
-                  </div>
-                  
-                  {/* Performance & Status Row */}
-                  <div className="flex items-center justify-between mb-3 pl-8">
-                    <div className="flex items-center gap-3">
-                      <div className="text-center">
-                        <div className="text-sm font-semibold text-gray-900">{Math.round(student.average)}%</div>
-                        <div className="text-xs text-gray-500">Term Avg</div>
-                      </div>
-                      <Badge
-                        variant={
-                          student.status === "Doing Well" ? "default" :
-                          student.status === "Needs Support" ? "secondary" :
-                          student.status === "At Risk" ? "destructive" : "outline"
-                        }
-                        className={`text-xs ${
-                          student.status === "Doing Well" ? "bg-green-100 text-green-800 hover:bg-green-200" :
-                          student.status === "Needs Support" ? "bg-yellow-100 text-yellow-800 hover:bg-yellow-200" :
-                          student.status === "At Risk" ? "bg-red-100 text-red-800 hover:bg-red-200" : 
-                          "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                        }`}
-                      >
-                        {student.status}
-                      </Badge>
-                    </div>
-                  </div>
-                  
-                  {/* Action Button */}
-                  <div className="pl-8">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => onViewDetails(student)}
-                      className="w-full text-red-600 border-red-200 hover:bg-red-50 text-sm"
-                    >
-                      View Details
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="p-8 text-center text-gray-500">
-            <div className="flex flex-col items-center gap-3">
-              <Users className="h-12 w-12 text-gray-300" />
-              <div>
-                <p className="font-medium">No students found</p>
-                <p className="text-sm">Try adjusting your search criteria</p>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
     </div>
   )
 }

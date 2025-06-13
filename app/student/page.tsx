@@ -911,53 +911,53 @@ export default function StudentDashboard() {
         sidebarContent={<Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />}
       >
       {activeTab === "profile" && (
-        <div className="space-y-6">
+        <div className="space-y-3 sm:space-y-6">
           <ProfileForm />
         </div>
       )}
 
       {activeTab === "overview" && (
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow-sm border">
-            <h2 className="text-2xl font-semibold mb-4">Welcome, {userInfo?.name.split(" ")[0] || "Student"}!</h2>
-            <p className="text-gray-600 mb-6">
+        <div className="space-y-3 sm:space-y-6">
+          <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-none sm:rounded-lg shadow-sm border-0 sm:border">
+            <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold mb-3 sm:mb-4">Welcome, {userInfo?.name.split(" ")[0] || "Student"}!</h2>
+            <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
               This is your student dashboard where you can track your academic performance, input your grades, and view
               your progress over time.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="bg-red-50 p-4 rounded-lg border border-red-100">
-                <h3 className="font-medium text-red-800 mb-2">Input Form</h3>
-                <p className="text-sm text-gray-600 mb-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+              <div className="bg-red-50 p-3 sm:p-4 rounded-lg border border-red-100">
+                <h3 className="font-medium text-red-800 mb-2 text-sm sm:text-base">Input Form</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-3">
                   Add your subjects and input your grades to track your academic performance.
                 </p>
                 <button
                   onClick={() => setActiveTab("input")}
-                  className="text-sm text-red-600 hover:text-red-800 font-medium"
+                  className="text-xs sm:text-sm text-red-600 hover:text-red-800 font-medium"
                 >
                   Go to Input Form →
                 </button>
               </div>
 
-              <div className="bg-orange-50 p-4 rounded-lg border border-orange-100">
-                <h3 className="font-medium text-orange-800 mb-2">Performance Summary</h3>
-                <p className="text-sm text-gray-600 mb-3">
+              <div className="bg-orange-50 p-3 sm:p-4 rounded-lg border border-orange-100">
+                <h3 className="font-medium text-orange-800 mb-2 text-sm sm:text-base">Performance Summary</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-3">
                   View your academic performance metrics and track your progress over time.
                 </p>
                 <button
                   onClick={() => setActiveTab("summary")}
-                  className="text-sm text-orange-600 hover:text-orange-800 font-medium"
+                  className="text-xs sm:text-sm text-orange-600 hover:text-orange-800 font-medium"
                 >
                   View Performance →
                 </button>
               </div>
 
-              <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-                <h3 className="font-medium text-blue-800 mb-2">Profile Settings</h3>
-                <p className="text-sm text-gray-600 mb-3">Update your personal information and academic details.</p>
+              <div className="bg-blue-50 p-3 sm:p-4 rounded-lg border border-blue-100 sm:col-span-2 lg:col-span-1">
+                <h3 className="font-medium text-blue-800 mb-2 text-sm sm:text-base">Profile Settings</h3>
+                <p className="text-xs sm:text-sm text-gray-600 mb-3">Update your personal information and academic details.</p>
                 <button
                   onClick={() => setActiveTab("profile")}
-                  className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                  className="text-xs sm:text-sm text-blue-600 hover:text-blue-800 font-medium"
                 >
                   Edit Profile →
                 </button>
@@ -969,7 +969,7 @@ export default function StudentDashboard() {
 
       {activeTab === "input" && (
         <DashboardErrorBoundary>
-          <div className="space-y-6">
+          <div className="space-y-3 sm:space-y-6">
             {/* Validation Summary */}
             {Object.values(formErrors).some(errors => errors.length > 0) && (
               <ValidationSummary 

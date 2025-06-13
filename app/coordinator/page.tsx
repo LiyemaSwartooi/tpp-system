@@ -400,34 +400,34 @@ export default function CoordinatorDashboard() {
         title="Coordinator Dashboard"
       >
         <div className="min-h-screen bg-gray-50">
-          <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 space-y-4 sm:space-y-6 pb-20 sm:pb-8">
+          <div className="px-2 sm:px-4 lg:px-6 py-2 sm:py-4 lg:py-6 space-y-3 sm:space-y-4 lg:space-y-6 pb-20 sm:pb-8">
             {activeTab === "overview" ? (
               <>
                 {/* Header Section */}
                 <DashboardErrorBoundary>
-                  <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
-                    <div className="flex flex-col gap-4">
+                  <div className="bg-white rounded-lg shadow-sm border p-3 sm:p-4 lg:p-6">
+                    <div className="flex flex-col gap-3 sm:gap-4">
                       {/* Title */}
                       <div>
-                        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">
+                        <h1 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-gray-900">
                           Student Performance - Term {selectedTerm}
                         </h1>
-                        <p className="text-gray-600 mt-1 text-sm sm:text-base">
+                        <p className="text-gray-600 mt-1 text-xs sm:text-sm lg:text-base">
                           Monitor and manage student progress across all schools
                         </p>
                       </div>
 
                       {/* Controls Section */}
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
                         {/* Term Selector - Mobile Optimized */}
                         <div className="flex flex-col xs:flex-row xs:items-center gap-2">
-                          <span className="text-sm text-gray-600 font-medium">Select Term:</span>
-                          <div className="flex flex-wrap gap-2">
+                          <span className="text-xs sm:text-sm text-gray-600 font-medium">Select Term:</span>
+                          <div className="flex flex-wrap gap-1.5 sm:gap-2">
                             {[1, 2, 3, 4].map((term) => (
                               <button
                                 key={term}
                                 onClick={() => setSelectedTerm(term)}
-                                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 min-w-[48px] ${
+                                className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 min-w-[44px] sm:min-w-[48px] ${
                                   selectedTerm === term
                                     ? "bg-red-600 text-white shadow-sm"
                                     : "bg-gray-100 text-gray-600 hover:bg-gray-200 border border-gray-200"
@@ -440,8 +440,8 @@ export default function CoordinatorDashboard() {
                         </div>
                         
                         {/* Status Indicator */}
-                        <div className="flex items-center gap-2 text-sm text-gray-500">
-                          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-500">
+                          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full animate-pulse"></div>
                           <span className="hidden sm:inline">Live Dashboard</span>
                           <span className="sm:hidden">Live</span>
                           {isSearching && (
@@ -458,7 +458,7 @@ export default function CoordinatorDashboard() {
 
                 {/* Summary Cards */}
                 <DashboardErrorBoundary>
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     <DataLoading
                       loading={isLoading}
                       error={error}
@@ -476,7 +476,7 @@ export default function CoordinatorDashboard() {
 
                 {/* Main Content */}
                 <DashboardErrorBoundary>
-                  <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+                  <div className="bg-white rounded-none sm:rounded-lg shadow-sm border-0 sm:border overflow-hidden">
                     <DataLoading
                       loading={isLoading}
                       error={error}
@@ -519,11 +519,11 @@ export default function CoordinatorDashboard() {
               <PasswordManagement />
             ) : activeTab === "student-details" ? (
               <DashboardErrorBoundary>
-                <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+                <div className="bg-white rounded-none sm:rounded-lg shadow-sm border-0 sm:border overflow-hidden">
                   <DataLoading
                     loading={isLoading}
                     error={error}
-                    skeleton={<div className="p-6"><Spinner className="mx-auto" /></div>}
+                    skeleton={<div className="p-3 sm:p-6"><Spinner className="mx-auto" /></div>}
                   >
                     <StudentDetails
                       selectedStudent={selectedStudent}

@@ -215,18 +215,18 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
   })
 
   return (
-    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
-      <div className="max-w-7xl mx-auto space-y-4 sm:space-y-6">
+    <div className="min-h-screen bg-gray-50 p-2 sm:p-4 lg:p-6">
+      <div className="max-w-7xl mx-auto space-y-3 sm:space-y-4 lg:space-y-6">
         {/* Header Actions */}
-        <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-white rounded-none sm:rounded-lg shadow-sm border-0 sm:border p-3 sm:p-4 lg:p-6">
+          <div className="flex flex-col gap-3 sm:gap-4">
             <Button 
               variant="outline" 
               onClick={() => {
                 setSelectedStudent(null)
                 setActiveTab('overview')
               }} 
-              className="flex items-center gap-2 w-full sm:w-auto"
+              className="flex items-center gap-2 w-full sm:w-auto justify-start"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -246,12 +246,12 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
               Back to Student List
             </Button>
 
-            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
               <Button
                 variant="outline"
                 onClick={() => loadStudentProfile(student.id)}
                 disabled={isLoadingProfile}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 justify-center"
               >
                 {isLoadingProfile ? (
                   <>
@@ -273,8 +273,7 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
                 ) : (
                   <>
                     <User className="h-4 w-4" />
-                    <span className="hidden sm:inline">Profile Info</span>
-                    <span className="sm:hidden">Profile</span>
+                    <span>Profile Info</span>
                   </>
                 )}
               </Button>
@@ -283,7 +282,7 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
                 variant="outline"
                 onClick={() => loadStudentReports(student.id)}
                 disabled={isLoadingReports}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 justify-center"
               >
                 {isLoadingReports ? (
                   <>
@@ -305,14 +304,17 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
                 ) : (
                   <>
                     <FileText className="h-4 w-4" />
-                    <span className="hidden sm:inline">View Reports</span>
-                    <span className="sm:hidden">Reports</span>
+                    <span>View Reports</span>
                   </>
                 )}
               </Button>
               
-              <Button variant="outline" size="sm" onClick={() => window.print()} className="hidden sm:flex">
-                <Printer className="h-4 w-4 mr-2" />
+              <Button 
+                variant="outline" 
+                onClick={() => window.print()} 
+                className="flex items-center gap-2 justify-center sm:col-span-2 lg:col-span-1"
+              >
+                <Printer className="h-4 w-4" />
                 Print
               </Button>
             </div>
@@ -320,21 +322,21 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
         </div>
 
         {/* Student Overview Card */}
-        <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
-          <div className="p-4 sm:p-6">
+        <div className="bg-white rounded-none sm:rounded-lg shadow-sm border-0 sm:border overflow-hidden">
+          <div className="p-3 sm:p-4 lg:p-6">
             {/* Student Header */}
-            <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-200">
-              <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6 pb-4 sm:pb-6 border-b border-gray-200">
+              <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mx-auto sm:mx-0">
                 <span className="text-lg sm:text-xl font-bold text-red-600">
                   {student.name.split(' ').map(n => n[0]).join('').toUpperCase()}
                 </span>
               </div>
-              <div className="flex-1 min-w-0">
-                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 truncate">{student.name}</h1>
-                <p className="text-sm sm:text-base text-gray-600 truncate">{student.email}</p>
+              <div className="flex-1 min-w-0 text-center sm:text-left">
+                <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{student.name}</h1>
+                <p className="text-sm sm:text-base text-gray-600 break-all sm:truncate">{student.email}</p>
                 
                 {/* Status Badge */}
-                <div className="mt-3 flex items-center gap-2">
+                <div className="mt-2 sm:mt-3 flex items-center gap-2 justify-center sm:justify-start">
                   <div className={`w-3 h-3 rounded-full ${
                     student.status === "Doing Well" ? "bg-green-500" :
                     student.status === "Needs Support" ? "bg-yellow-500" :
@@ -352,46 +354,46 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
             </div>
             
             {/* Student Information Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
               {/* School Info */}
-              <div className="bg-blue-50 rounded-lg p-4">
+              <div className="bg-blue-50 rounded-lg p-3 sm:p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                     </svg>
                   </div>
-                  <h3 className="text-sm font-semibold text-blue-700">School</h3>
+                  <h3 className="text-xs sm:text-sm font-semibold text-blue-700">School</h3>
                 </div>
-                <p className="text-sm text-blue-900 font-medium">
+                <p className="text-xs sm:text-sm text-blue-900 font-medium break-words">
                   {student.school || 'Not specified'}
                 </p>
               </div>
 
               {/* Grade Info */}
-              <div className="bg-purple-50 rounded-lg p-4">
+              <div className="bg-purple-50 rounded-lg p-3 sm:p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-purple-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                   </div>
-                  <h3 className="text-sm font-semibold text-purple-700">Grade</h3>
+                  <h3 className="text-xs sm:text-sm font-semibold text-purple-700">Grade</h3>
                 </div>
-                <p className="text-sm text-purple-900 font-medium">
+                <p className="text-xs sm:text-sm text-purple-900 font-medium">
                   Grade {student.grade || 'Not specified'}
                 </p>
               </div>
 
               {/* Term-Specific Average */}
-              <div className="bg-red-50 rounded-lg p-4 sm:col-span-2 lg:col-span-1">
+              <div className="bg-red-50 rounded-lg p-3 sm:p-4 col-span-1 sm:col-span-2 lg:col-span-1">
                 <div className="flex items-center gap-2 mb-2">
-                  <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-6 h-6 sm:w-8 sm:h-8 bg-red-100 rounded-lg flex items-center justify-center">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
                   </div>
-                  <h3 className="text-sm font-semibold text-red-700">Term {selectedTerm} Average</h3>
+                  <h3 className="text-xs sm:text-sm font-semibold text-red-700">Term {selectedTerm} Average</h3>
                 </div>
                 <div className="flex items-baseline gap-2">
                   {(() => {
@@ -430,28 +432,28 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
         </div>
 
         {/* Term Performance Section */}
-        <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
-          <div className="p-4 sm:p-6">
-            <div className="flex items-center gap-2 mb-6">
-              <BarChart className="h-5 w-5 text-gray-600" />
-              <h2 className="text-lg font-semibold text-gray-900">Performance by Term</h2>
+        <div className="bg-white rounded-none sm:rounded-lg shadow-sm border-0 sm:border overflow-hidden">
+          <div className="p-3 sm:p-4 lg:p-6">
+            <div className="flex items-center gap-2 mb-4 sm:mb-6">
+              <BarChart className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900">Performance by Term</h2>
             </div>
             
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 sm:mb-6">
               {[1, 2, 3, 4].map((term) => (
                 <Button
                   key={term}
                   variant={selectedTerm === term ? "default" : "outline"}
                   size="sm"
                   onClick={() => setSelectedTerm(term)}
-                  className={`${selectedTerm === term ? "bg-red-600 hover:bg-red-700 text-white" : "hover:bg-gray-50"} w-full`}
+                  className={`${selectedTerm === term ? "bg-red-600 hover:bg-red-700 text-white" : "hover:bg-gray-50"} w-full text-xs sm:text-sm`}
                 >
                   Term {term}
                 </Button>
               ))}
             </div>
 
-            <div className="text-sm text-gray-600 mb-4">
+            <div className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4">
               Viewing detailed subject performance for Term {selectedTerm}
             </div>
 
@@ -498,35 +500,37 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
                 </div>
 
                 {/* Mobile Card View */}
-                <div className="md:hidden space-y-4">
+                <div className="md:hidden space-y-3">
                   {studentSubjects
                     .find((s) => s.studentId === selectedStudent && s.term === selectedTerm)
                     ?.subjects.map((subject, index) => (
                       <div key={index} className="border rounded-lg overflow-hidden">
-                        <div className="bg-gray-50 px-4 py-3 border-b">
-                          <h4 className="font-medium text-gray-900">{subject.name}</h4>
+                        <div className="bg-gray-50 px-3 py-2 border-b">
+                          <h4 className="font-medium text-gray-900 text-sm">{subject.name}</h4>
                         </div>
-                        <div className="p-4 grid grid-cols-3 gap-4 text-sm">
-                          <div>
-                            <div className="text-gray-600 text-xs">Level</div>
-                            <div className="font-medium text-gray-900">{subject.level}</div>
-                          </div>
-                          <div>
-                            <div className="text-gray-600 text-xs">Final %</div>
-                            <div className={`font-semibold ${
-                              subject.finalPercentage >= 70 ? 'text-green-600' :
-                              subject.finalPercentage >= 50 ? 'text-yellow-600' : 'text-red-600'
-                            }`}>
-                              {subject.finalPercentage}%
+                        <div className="p-3 space-y-3">
+                          <div className="grid grid-cols-3 gap-3 text-xs">
+                            <div className="text-center">
+                              <div className="text-gray-600 text-xs">Level</div>
+                              <div className="font-medium text-gray-900 mt-1">{subject.level}</div>
                             </div>
-                          </div>
-                          <div>
-                            <div className="text-gray-600 text-xs">Grade Avg %</div>
-                            <div className={`font-semibold ${
-                              subject.gradeAverage >= 70 ? 'text-green-600' :
-                              subject.gradeAverage >= 50 ? 'text-yellow-600' : 'text-red-600'
-                            }`}>
-                              {subject.gradeAverage}%
+                            <div className="text-center">
+                              <div className="text-gray-600 text-xs">Final %</div>
+                              <div className={`font-semibold mt-1 ${
+                                subject.finalPercentage >= 70 ? 'text-green-600' :
+                                subject.finalPercentage >= 50 ? 'text-yellow-600' : 'text-red-600'
+                              }`}>
+                                {subject.finalPercentage}%
+                              </div>
+                            </div>
+                            <div className="text-center">
+                              <div className="text-gray-600 text-xs">Grade Avg %</div>
+                              <div className={`font-semibold mt-1 ${
+                                subject.gradeAverage >= 70 ? 'text-green-600' :
+                                subject.gradeAverage >= 50 ? 'text-yellow-600' : 'text-red-600'
+                              }`}>
+                                {subject.gradeAverage}%
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -748,13 +752,13 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
         </div>
 
         {/* Performance Trends Section */}
-        <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
-          <div className="p-4 sm:p-6">
-            <div className="flex items-center gap-2 mb-6">
-              <BarChart className="h-5 w-5 text-gray-600" />
-              <h2 className="text-lg font-semibold text-gray-900">Performance Trends</h2>
+        <div className="bg-white rounded-none sm:rounded-lg shadow-sm border-0 sm:border overflow-hidden">
+          <div className="p-3 sm:p-4 lg:p-6">
+            <div className="flex items-center gap-2 mb-4 sm:mb-6">
+              <BarChart className="h-4 w-4 sm:h-5 sm:w-5 text-gray-600" />
+              <h2 className="text-base sm:text-lg font-semibold text-gray-900">Performance Trends</h2>
             </div>
-            <p className="text-sm text-gray-600 mb-6">Subject performance across all terms</p>
+            <p className="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6">Subject performance across all terms</p>
             <PerformanceTrends student={student} studentSubjects={studentSubjects} />
           </div>
         </div>

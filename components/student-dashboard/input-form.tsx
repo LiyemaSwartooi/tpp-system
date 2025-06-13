@@ -120,21 +120,21 @@ export const InputForm: React.FC<InputFormProps> = ({
 
   return (
     <DashboardErrorBoundary>
-      <Card className="overflow-hidden border-0 shadow-lg rounded-xl">
-      <div className="bg-gradient-to-r from-red-600 to-red-500 py-6 px-4 sm:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3 mb-2">
-          <div className="flex items-center mb-2 sm:mb-0">
-            <div className="bg-white/20 p-2 rounded-lg mr-3">
-              <BookOpen className="h-6 w-6 text-white" />
+      <Card className="overflow-hidden border-0 sm:border shadow-none sm:shadow-lg rounded-none sm:rounded-xl">
+      <div className="bg-gradient-to-r from-red-600 to-red-500 py-4 px-3 sm:py-6 sm:px-4 lg:px-8">
+        <div className="flex flex-col space-y-2 sm:space-y-0 sm:flex-row sm:items-center sm:space-x-3 mb-2">
+          <div className="flex items-center">
+            <div className="bg-white/20 p-1.5 sm:p-2 rounded-lg mr-2 sm:mr-3">
+              <BookOpen className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
             </div>
-            <CardTitle className="text-xl sm:text-2xl font-bold text-white">Academic Results</CardTitle>
+            <CardTitle className="text-lg sm:text-xl lg:text-2xl font-bold text-white">Academic Results</CardTitle>
           </div>
-          <CardDescription className="text-white/80 mt-1 sm:ml-11 text-sm sm:text-base">
+          <CardDescription className="text-white/80 text-xs sm:text-sm lg:text-base sm:ml-11">
             Enter your subject results for Term {selectedTerm} to track your performance
           </CardDescription>
         </div>
       </div>
-      <CardContent className="pt-5 px-4 sm:px-8">
+      <CardContent className="pt-3 px-3 sm:pt-5 sm:px-4 lg:px-8">
         <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           {/* Grade and Term Selection */}
           <GradeSelection
@@ -146,23 +146,23 @@ export const InputForm: React.FC<InputFormProps> = ({
           />
 
           {/* School Selection */}
-          <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-sm space-y-4">
+          <div className="bg-gray-50 p-3 sm:p-4 rounded-lg sm:rounded-xl border border-gray-100 shadow-sm space-y-3 sm:space-y-4">
             <div className="border-b border-gray-200 pb-2">
               <label className="block text-sm font-medium text-gray-700 flex items-center justify-between">
                 <div className="flex items-center">
-                  <School className="h-5 w-5 mr-2 text-red-500" />
-                  <span className="text-base">Select School</span>
+                  <School className="h-4 w-4 sm:h-5 sm:w-5 mr-2 text-red-500" />
+                  <span className="text-sm sm:text-base">Select School</span>
                 </div>
                                  {selectedSchool && (
                    <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full flex items-center gap-1">
                      <Edit3 className="h-3 w-3" />
-                     From Profile
+                     <span className="hidden sm:inline">From Profile</span>
                    </span>
                  )}
               </label>
             </div>
             <Select value={selectedSchool} onValueChange={setSelectedSchool} disabled={isSubmitted}>
-              <SelectTrigger className="w-full h-10 text-sm border-gray-300 focus:border-orange-500 focus:ring-orange-500 bg-white">
+              <SelectTrigger className="w-full h-9 sm:h-10 text-sm border-gray-300 focus:border-orange-500 focus:ring-orange-500 bg-white">
                 <SelectValue placeholder="Select your school" />
               </SelectTrigger>
               <SelectContent>

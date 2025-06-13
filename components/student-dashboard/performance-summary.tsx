@@ -104,7 +104,7 @@ export const PerformanceSummary: React.FC<PerformanceSummaryProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="bg-white p-4 rounded-lg border border-gray-200">
+                      <div className="bg-white p-3 sm:p-4 rounded-none sm:rounded-lg border-0 sm:border border-gray-200">
             <p className="text-sm text-gray-600 mb-1">Term {selectedTerm} Average</p>
             <p className="text-3xl font-bold text-gray-900">{Math.round(average)}%</p>
           </div>
@@ -171,7 +171,7 @@ export const PerformanceSummary: React.FC<PerformanceSummaryProps> = ({
               </div>
 
               {/* Mobile View - Card */}
-              <div className="md:hidden bg-white rounded-lg shadow-sm border border-gray-100 p-4">
+              <div className="md:hidden bg-white rounded-none sm:rounded-lg shadow-sm border-0 sm:border border-gray-100 p-3 sm:p-4">
                 <div className="font-medium text-gray-800 mb-2">{subject.name}</div>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between items-center">

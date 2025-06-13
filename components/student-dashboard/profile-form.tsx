@@ -1545,7 +1545,7 @@ export function ProfileForm() {
         <hr className="border-gray-200 mx-6" />
         <CardContent className="pt-6 px-6 pb-8">
         {/* File Upload Section */}
-        <div className="bg-white p-4 md:p-6 rounded-lg border border-gray-200">
+        <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-none sm:rounded-lg border-0 sm:border border-gray-200">
           <div className="space-y-4">
             <div>
               <h3 className="text-base md:text-lg font-medium">Upload New Report</h3>
