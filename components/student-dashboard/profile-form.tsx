@@ -1591,8 +1591,8 @@ export function ProfileForm() {
                         <TextCounter 
                           text={profile.original_essay || ''} 
                           wordLimit={{ min: 300, max: 500 }}
-                        />
-                        {getFieldError('original_essay') && (
+                      />
+                      {getFieldError('original_essay') && (
                           <p className="text-sm text-red-500 mt-1">
                             {countWords(profile.original_essay || '') < 300 
                               ? 'Essay must be at least 300 words' 
@@ -1600,7 +1600,7 @@ export function ProfileForm() {
                                 ? 'Essay cannot exceed 500 words'
                                 : 'Essay is required'}
                           </p>
-                        )}
+                      )}
                       </div>
                     </div>
                   </div>
@@ -1700,93 +1700,93 @@ export function ProfileForm() {
           <div>
             <CardTitle className="text-xl font-bold text-gray-800">Academic Reports</CardTitle>
             <CardDescription className="text-gray-600 text-sm mt-1">Upload and manage your academic reports securely.</CardDescription>
-          </div>
+      </div>
         </div>
         <div className="border-b border-gray-200 mx-6"></div>
         <CardContent className="pt-6 px-6 pb-8">
-          {/* File Upload Section */}
+        {/* File Upload Section */}
           <div className="bg-white p-3 sm:p-5 lg:p-6 rounded-xl border border-gray-100 shadow-sm">
             <div className="space-y-4 sm:space-y-5">
-              <div>
+            <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Upload New Report</h3>
                 <p className="text-sm text-gray-600 mb-4">Supported formats: PDF, DOC, DOCX (Maximum size: 10MB)</p>
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-                  <label className="flex-1">
+                <label className="flex-1">
                     <div className="flex flex-col items-center justify-center w-full p-4 md:px-6 md:py-8 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition-all duration-200 group">
                       <Upload className="h-8 w-8 md:h-10 md:w-10 text-gray-400 group-hover:text-blue-500 mb-2 md:mb-3 transition-colors" />
                       <p className="text-sm md:text-base text-gray-700 text-center font-medium">
-                        {selectedFile ? (
+                      {selectedFile ? (
                           <span className="truncate max-w-[250px] block mx-auto text-blue-700">{selectedFile.name}</span>
-                        ) : (
+                      ) : (
                           "Click to select a file"
-                        )}
-                      </p>
+                      )}
+                    </p>
                       {!selectedFile && <p className="text-xs md:text-sm text-gray-500 mt-1">or drag and drop your report here</p>}
-                      <input type="file" className="hidden" onChange={handleFileChange} accept=".pdf,.doc,.docx" />
-                    </div>
-                  </label>
-                  <Button
-                    type="button"
-                    onClick={handleFileUpload}
-                    disabled={!selectedFile || isUploading}
+                    <input type="file" className="hidden" onChange={handleFileChange} accept=".pdf,.doc,.docx" />
+                  </div>
+                </label>
+                <Button
+                  type="button"
+                  onClick={handleFileUpload}
+                  disabled={!selectedFile || isUploading}
                     className="h-auto py-3 px-6 text-base font-medium min-w-[140px] bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300"
-                  >
-                    {isUploading ? (
-                      <>
+                >
+                  {isUploading ? (
+                    <>
                         <Loader2 className="h-5 w-5 mr-2 animate-spin" />
                         <span>Uploading...</span>
-                      </>
-                    ) : (
-                      <span className="flex items-center">
+                    </>
+                  ) : (
+                    <span className="flex items-center">
                         <Upload className="h-5 w-5 mr-2" />
                         <span>Upload File</span>
-                      </span>
-                    )}
-                  </Button>
-                </div>
-                {uploadProgress > 0 && uploadProgress < 100 && (
+                    </span>
+                  )}
+                </Button>
+              </div>
+              {uploadProgress > 0 && uploadProgress < 100 && (
                   <div className="mt-4">
                     <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div
+                    <div
                         className="bg-blue-600 h-3 rounded-full transition-all duration-300 relative overflow-hidden"
-                        style={{ width: `${uploadProgress}%` }}
+                      style={{ width: `${uploadProgress}%` }}
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
-                      </div>
+                  </div>
                     </div>
                     <p className="text-sm text-gray-600 mt-2 text-right font-medium">{uploadProgress}% uploaded</p>
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
+            </div>
               
-              {/* Uploaded Reports List */}
+            {/* Uploaded Reports List */}
               <div className="mt-6 sm:mt-8">
                 <div className="flex items-center justify-between mb-3 sm:mb-5">
                   <h3 className="text-lg font-semibold text-gray-900">Your Reports</h3>
                   <div className="flex items-center gap-2">
                     <div className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
                       {reports.length} {reports.length === 1 ? 'file' : 'files'}
-                    </div>
+              </div>
                   </div>
                 </div>
                 
-                {reports.length === 0 ? (
+              {reports.length === 0 ? (
                   <div className="text-center py-6 sm:py-8 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50">
                     <div className="bg-gray-100 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4">
                       <FileText className="h-6 w-6 sm:h-8 sm:w-8 text-gray-400" />
                     </div>
                     <h4 className="text-sm sm:text-base font-medium text-gray-700 mb-1 sm:mb-2">No reports uploaded yet</h4>
                     <p className="text-xs sm:text-sm text-gray-500">Upload your first academic report to get started</p>
-                  </div>
-                ) : (
+                </div>
+              ) : (
                   <div className="space-y-2 sm:space-y-3">
-                    {reports.map((report) => (
+                  {reports.map((report) => (
                       <div key={report.id} className="group border border-gray-200 rounded-lg sm:rounded-xl p-2.5 sm:p-4 hover:border-blue-200 hover:bg-blue-50/30 hover:shadow-md transition-all duration-200">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2.5 sm:space-x-4 flex-1 min-w-0">
                             <div className="bg-blue-100 group-hover:bg-blue-200 p-2 sm:p-3 rounded-md sm:rounded-lg transition-colors flex-shrink-0">
                               <FileText className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600" />
-                            </div>
+                          </div>
                             <div className="flex-1 min-w-0">
                               <h4 className="font-medium sm:font-semibold text-gray-900 truncate group-hover:text-blue-900 transition-colors text-sm sm:text-base leading-tight">
                                 {report.name}
@@ -1797,41 +1797,41 @@ export function ProfileForm() {
                                     month: 'short',
                                     day: 'numeric'
                                   })}
-                                </span>
-                                <span className="text-xs text-gray-400">•</span>
+                              </span>
+                              <span className="text-xs text-gray-400">•</span>
                                 <span className="text-xs sm:text-sm text-gray-600">{report.size}</span>
-                              </div>
                             </div>
                           </div>
+                        </div>
                           <div className="flex items-center space-x-1 sm:space-x-2 ml-2 sm:ml-4 flex-shrink-0">
-                            <a
-                              href={report.url}
-                              download
+                          <a
+                            href={report.url}
+                            download
                               className="p-2 sm:p-2.5 text-gray-500 hover:text-green-600 rounded-lg hover:bg-green-50 border border-transparent hover:border-green-200 transition-all duration-200 group/download min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] flex items-center justify-center"
                               title="Download report"
-                            >
+                          >
                               <Download className="h-4 w-4 sm:h-5 sm:w-5 group-hover/download:scale-110 transition-transform" />
-                            </a>
+                          </a>
                             <MobileIconButton
                               icon={X}
-                              onClick={async (e) => {
-                                e.preventDefault()
-                                await handleDeleteReport(report.id, report.name)
-                              }}
+                            onClick={async (e) => {
+                              e.preventDefault()
+                              await handleDeleteReport(report.id, report.name)
+                            }}
                               variant="delete"
                               title="Delete report"
-                              disabled={isUploading}
+                            disabled={isUploading}
                               size="sm"
                             />
-                          </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
+        </div>
         </CardContent>
       </Card>
     </>

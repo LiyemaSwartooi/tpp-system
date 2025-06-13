@@ -535,13 +535,13 @@ export default function AccessPortal() {
                   <div>
                     <Label htmlFor="password">Password</Label>
                     <div className="relative">
-                      <Input
-                        id="password"
+                    <Input
+                      id="password"
                         type={showSignInPassword ? "text" : "password"}
-                        placeholder="••••••••"
+                      placeholder="••••••••"
                         className={signInForm.formState.errors.password ? "border-red-500 focus:border-red-500 pr-10" : "pr-10"}
-                        {...signInForm.register("password")}
-                      />
+                      {...signInForm.register("password")}
+                    />
                       <button
                         type="button"
                         className="absolute inset-y-0 right-0 pr-3 flex items-center"
@@ -668,13 +668,13 @@ export default function AccessPortal() {
                   <div>
                     <Label htmlFor="password">Password</Label>
                     <div className="relative">
-                      <Input
-                        id="password"
+                    <Input
+                      id="password"
                         type={showSignUpPassword ? "text" : "password"}
-                        placeholder="••••••••"
+                      placeholder="••••••••"
                         className={signUpForm.formState.errors.password ? "border-red-500 focus:border-red-500 pr-10" : "pr-10"}
-                        {...signUpForm.register("password")}
-                      />
+                      {...signUpForm.register("password")}
+                    />
                       <button
                         type="button"
                         className="absolute inset-y-0 right-0 pr-3 flex items-center"
@@ -697,13 +697,13 @@ export default function AccessPortal() {
                   <div>
                     <Label htmlFor="confirmPassword">Confirm Password</Label>
                     <div className="relative">
-                      <Input
-                        id="confirmPassword"
+                    <Input
+                      id="confirmPassword"
                         type={showConfirmPassword ? "text" : "password"}
-                        placeholder="••••••••"
+                      placeholder="••••••••"
                         className={signUpForm.formState.errors.confirmPassword ? "border-red-500 focus:border-red-500 pr-10" : "pr-10"}
-                        {...signUpForm.register("confirmPassword")}
-                      />
+                      {...signUpForm.register("confirmPassword")}
+                    />
                       <button
                         type="button"
                         className="absolute inset-y-0 right-0 pr-3 flex items-center"

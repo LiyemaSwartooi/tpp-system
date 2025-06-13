@@ -602,7 +602,7 @@ export const StudentTable: React.FC<StudentTableProps> = ({
               )}
             </tbody>
           </table>
-        </div>
+      </div>
     </div>
   )
 }

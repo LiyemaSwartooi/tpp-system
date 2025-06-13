@@ -37,6 +37,10 @@ export const allSubjects: AllSubject[] = [
   { id: "subject-13", name: "Life Orientation" },
   { id: "subject-14", name: "Consumer Studies" },
   { id: "subject-15", name: "Tourism" },
+  { id: "subject-16", name: "Afrikaans Home Language" },
+  { id: "subject-17", name: "English First Additional Language" },
+  { id: "subject-18", name: "Mathematical Literacy" },
+  { id: "subject-19", name: "Engineering Graphics and Design" }
 ]
 
 // Export all components

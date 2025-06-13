@@ -511,25 +511,25 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
                         <div className="p-3 space-y-3">
                           <div className="grid grid-cols-3 gap-3 text-xs">
                             <div className="text-center">
-                              <div className="text-gray-600 text-xs">Level</div>
+                            <div className="text-gray-600 text-xs">Level</div>
                               <div className="font-medium text-gray-900 mt-1">{subject.level}</div>
-                            </div>
+                          </div>
                             <div className="text-center">
-                              <div className="text-gray-600 text-xs">Final %</div>
+                            <div className="text-gray-600 text-xs">Final %</div>
                               <div className={`font-semibold mt-1 ${
-                                subject.finalPercentage >= 70 ? 'text-green-600' :
-                                subject.finalPercentage >= 50 ? 'text-yellow-600' : 'text-red-600'
-                              }`}>
-                                {subject.finalPercentage}%
-                              </div>
+                              subject.finalPercentage >= 70 ? 'text-green-600' :
+                              subject.finalPercentage >= 50 ? 'text-yellow-600' : 'text-red-600'
+                            }`}>
+                              {subject.finalPercentage}%
                             </div>
+                          </div>
                             <div className="text-center">
-                              <div className="text-gray-600 text-xs">Grade Avg %</div>
+                            <div className="text-gray-600 text-xs">Grade Avg %</div>
                               <div className={`font-semibold mt-1 ${
-                                subject.gradeAverage >= 70 ? 'text-green-600' :
-                                subject.gradeAverage >= 50 ? 'text-yellow-600' : 'text-red-600'
-                              }`}>
-                                {subject.gradeAverage}%
+                              subject.gradeAverage >= 70 ? 'text-green-600' :
+                              subject.gradeAverage >= 50 ? 'text-yellow-600' : 'text-red-600'
+                            }`}>
+                              {subject.gradeAverage}%
                               </div>
                             </div>
                           </div>
@@ -1095,7 +1095,7 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
               <div>
                 <DialogTitle className="text-xl font-semibold text-gray-900">
                   Academic Reports
-                </DialogTitle>
+            </DialogTitle>
                 <p className="text-sm text-gray-600 mt-1">
                   {student.name} • {reports.length} {reports.length === 1 ? 'report' : 'reports'}
                 </p>
@@ -1134,13 +1134,13 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
                                   month: 'short',
                                   day: 'numeric'
                                 })}
-                              </span>
-                            </div>
+                            </span>
+                          </div>
                             <div className="flex items-center space-x-1">
                               <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
                               <span className="text-sm text-gray-600">{report.size}</span>
-                            </div>
-                          </div>
+                        </div>
+                      </div>
                         </div>
                       </div>
                       

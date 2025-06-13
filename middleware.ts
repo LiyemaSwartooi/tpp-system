@@ -64,57 +64,57 @@ export async function middleware(request: NextRequest) {
     // Get the user's session
     const { data: { session }, error } = await supabase.auth.getSession()
 
-    // If the user is not signed in, redirect to the sign-in page
-    if (!session) {
-      const redirectUrl = request.nextUrl.clone()
-      redirectUrl.pathname = '/access-portal'
-      redirectUrl.searchParams.set('redirectedFrom', request.nextUrl.pathname)
+  // If the user is not signed in, redirect to the sign-in page
+  if (!session) {
+    const redirectUrl = request.nextUrl.clone()
+    redirectUrl.pathname = '/access-portal'
+    redirectUrl.searchParams.set('redirectedFrom', request.nextUrl.pathname)
+    return NextResponse.redirect(redirectUrl)
+  }
+
+  // If the user is signed in and trying to access the access portal, redirect to their dashboard
+  if (session && request.nextUrl.pathname === '/access-portal') {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', session.user.id)
+      .single()
+
+    if (profile) {
+      const redirectPath = profile.role === 'coordinator' ? '/coordinator' : '/student'
+      return NextResponse.redirect(new URL(redirectPath, request.url))
+    }
+  }
+
+  // Protect coordinator routes
+  if (session && request.nextUrl.pathname.startsWith('/coordinator')) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', session.user.id)
+      .single()
+
+    if (profile?.role !== 'coordinator') {
+      const redirectUrl = new URL('/access-denied', request.url)
+      redirectUrl.searchParams.set('reason', 'unauthorized')
       return NextResponse.redirect(redirectUrl)
     }
+  }
 
-    // If the user is signed in and trying to access the access portal, redirect to their dashboard
-    if (session && request.nextUrl.pathname === '/access-portal') {
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', session.user.id)
-        .single()
+  // Protect student routes
+  if (session && request.nextUrl.pathname.startsWith('/student')) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', session.user.id)
+      .single()
 
-      if (profile) {
-        const redirectPath = profile.role === 'coordinator' ? '/coordinator' : '/student'
-        return NextResponse.redirect(new URL(redirectPath, request.url))
-      }
+    if (profile?.role !== 'student') {
+      const redirectUrl = new URL(profile?.role === 'coordinator' ? '/coordinator' : '/access-denied', request.url)
+      redirectUrl.searchParams.set('reason', 'unauthorized')
+      return NextResponse.redirect(redirectUrl)
     }
-
-    // Protect coordinator routes
-    if (session && request.nextUrl.pathname.startsWith('/coordinator')) {
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', session.user.id)
-        .single()
-
-      if (profile?.role !== 'coordinator') {
-        const redirectUrl = new URL('/access-denied', request.url)
-        redirectUrl.searchParams.set('reason', 'unauthorized')
-        return NextResponse.redirect(redirectUrl)
-      }
-    }
-
-    // Protect student routes
-    if (session && request.nextUrl.pathname.startsWith('/student')) {
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('role')
-        .eq('id', session.user.id)
-        .single()
-
-      if (profile?.role !== 'student') {
-        const redirectUrl = new URL(profile?.role === 'coordinator' ? '/coordinator' : '/access-denied', request.url)
-        redirectUrl.searchParams.set('reason', 'unauthorized')
-        return NextResponse.redirect(redirectUrl)
-      }
-    }
+  }
 
     return response
   } catch (error) {
