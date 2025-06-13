@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Upload, FileText, Loader2, Download, X, User, Mail, Home, Star, Globe, ChevronDown, ChevronUp, AlertCircle, CheckCircle, XCircle, Ban, FolderOpen, Trash2, Edit3, PartyPopper } from "lucide-react"
+import { MobileIconButton } from '@/components/ui/mobile-icon-button'
 import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card"
 import { supabase } from '@/lib/supabase'
 import { createBrowserClient } from '@supabase/ssr'
@@ -1532,130 +1533,151 @@ export function ProfileForm() {
         </CardContent>
       </Card>
       {/* Academic Reports Section */}
-      <Card className="overflow-hidden border border-gray-200 shadow-sm rounded-2xl bg-gray-50 mt-8">
-        <div className="flex items-center px-6 pt-6 pb-2">
-          <div className="bg-blue-100 p-2 rounded-lg mr-3">
-            <FileText className="h-6 w-6 text-blue-500" />
+      <Card className="overflow-hidden border border-gray-200 shadow-sm rounded-2xl bg-gradient-to-br from-blue-50/50 to-gray-50 mt-8">
+        <div className="flex items-center px-6 pt-6 pb-4">
+          <div className="bg-blue-100 p-3 rounded-xl mr-4">
+            <FileText className="h-7 w-7 text-blue-600" />
           </div>
           <div>
-            <CardTitle className="text-lg font-bold text-gray-800">Academic Reports</CardTitle>
-            <CardDescription className="text-gray-500 text-sm">Upload and manage your academic reports.</CardDescription>
-      </div>
-        </div>
-        <hr className="border-gray-200 mx-6" />
-        <CardContent className="pt-6 px-6 pb-8">
-        {/* File Upload Section */}
-        <div className="bg-white p-3 sm:p-4 lg:p-6 rounded-none sm:rounded-lg border-0 sm:border border-gray-200">
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-base md:text-lg font-medium">Upload New Report</h3>
-              <p className="text-xs md:text-sm text-gray-500 mb-3 md:mb-4">PDF, DOC, DOCX (Max 10MB)</p>
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <label className="flex-1">
-                  <div className="flex flex-col items-center justify-center w-full p-3 md:px-4 md:py-6 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
-                    <Upload className="h-6 w-6 md:h-8 md:w-8 text-gray-400 mb-1 md:mb-2" />
-                    <p className="text-xs md:text-sm text-gray-600 text-center">
-                      {selectedFile ? (
-                        <span className="truncate max-w-[200px] block mx-auto">{selectedFile.name}</span>
-                      ) : (
-                        "Tap to select a file"
-                      )}
-                    </p>
-                    {!selectedFile && <p className="text-[10px] md:text-xs text-gray-500 mt-0.5">or drag and drop</p>}
-                    <input type="file" className="hidden" onChange={handleFileChange} accept=".pdf,.doc,.docx" />
-                  </div>
-                </label>
-                <Button
-                  type="button"
-                  onClick={handleFileUpload}
-                  disabled={!selectedFile || isUploading}
-                  className="h-auto py-2.5 md:py-2 px-3 text-sm md:text-base min-w-[100px] md:min-w-[120px]"
-                >
-                  {isUploading ? (
-                    <>
-                      <Loader2 className="h-4 w-4 md:mr-2 animate-spin" />
-                      <span className="hidden md:inline">Uploading...</span>
-                    </>
-                  ) : (
-                    <span className="flex items-center">
-                      <Upload className="h-4 w-4 mr-1 md:mr-2" />
-                      <span>Upload</span>
-                    </span>
-                  )}
-                </Button>
-              </div>
-              {uploadProgress > 0 && uploadProgress < 100 && (
-                <div className="mt-3 md:mt-4">
-                  <div className="w-full bg-gray-200 rounded-full h-2">
-                    <div
-                      className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                      style={{ width: `${uploadProgress}%` }}
-                    />
-                  </div>
-                  <p className="text-xs text-gray-500 mt-1 text-right">{uploadProgress}% uploaded</p>
-                </div>
-              )}
-            </div>
-            {/* Uploaded Reports List */}
-            <div className="mt-6 md:mt-8">
-              <div className="flex items-center justify-between mb-3 md:mb-4">
-                <h3 className="text-base md:text-lg font-medium">Your Reports</h3>
-                <span className="text-xs md:text-sm text-gray-500">{reports.length} files</span>
-              </div>
-              {reports.length === 0 ? (
-                <div className="text-center py-6 md:py-8 border border-dashed rounded-lg">
-                  <FileText className="mx-auto h-8 w-8 md:h-10 md:w-10 text-gray-400" />
-                  <p className="mt-2 text-sm text-gray-600">No reports uploaded yet</p>
-                </div>
-              ) : (
-                <div className="space-y-2">
-                  {reports.map((report) => (
-                    <div key={report.id} className="border rounded-lg p-3 md:p-4 hover:bg-gray-50 transition-colors">
-                      <div className="flex items-start justify-between">
-                        <div className="flex items-start space-x-3">
-                          <div className="bg-blue-50 p-2 rounded-lg">
-                            <FileText className="h-5 w-5 text-blue-600" />
-                          </div>
-                          <div>
-                            <p className="text-sm font-medium text-gray-900 line-clamp-1">{report.name}</p>
-                            <div className="flex items-center space-x-3 mt-1">
-                              <span className="text-xs text-gray-500">
-                                {new Date(report.uploadDate).toLocaleDateString()}
-                              </span>
-                              <span className="text-xs text-gray-400">•</span>
-                              <span className="text-xs text-gray-500">{report.size}</span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <a
-                            href={report.url}
-                            download
-                            className="p-2 text-gray-500 hover:text-blue-600 rounded-full hover:bg-blue-50"
-                            title="Download"
-                          >
-                            <Download className="h-4 w-4" />
-                          </a>
-                          <button
-                            onClick={async (e) => {
-                              e.preventDefault()
-                              await handleDeleteReport(report.id, report.name)
-                            }}
-                            className="p-2 text-gray-500 hover:text-red-600 rounded-full hover:bg-red-50"
-                            title="Delete"
-                            disabled={isUploading}
-                          >
-                            <X className="h-4 w-4" />
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
+            <CardTitle className="text-xl font-bold text-gray-800">Academic Reports</CardTitle>
+            <CardDescription className="text-gray-600 text-sm mt-1">Upload and manage your academic reports securely.</CardDescription>
           </div>
         </div>
+        <div className="border-b border-gray-200 mx-6"></div>
+        <CardContent className="pt-6 px-6 pb-8">
+          {/* File Upload Section */}
+          <div className="bg-white p-4 sm:p-5 lg:p-6 rounded-xl border border-gray-100 shadow-sm">
+            <div className="space-y-5">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Upload New Report</h3>
+                <p className="text-sm text-gray-600 mb-4">Supported formats: PDF, DOC, DOCX (Maximum size: 10MB)</p>
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+                  <label className="flex-1">
+                    <div className="flex flex-col items-center justify-center w-full p-4 md:px-6 md:py-8 border-2 border-dashed border-gray-300 rounded-xl cursor-pointer bg-gray-50 hover:bg-blue-50 hover:border-blue-300 transition-all duration-200 group">
+                      <Upload className="h-8 w-8 md:h-10 md:w-10 text-gray-400 group-hover:text-blue-500 mb-2 md:mb-3 transition-colors" />
+                      <p className="text-sm md:text-base text-gray-700 text-center font-medium">
+                        {selectedFile ? (
+                          <span className="truncate max-w-[250px] block mx-auto text-blue-700">{selectedFile.name}</span>
+                        ) : (
+                          "Click to select a file"
+                        )}
+                      </p>
+                      {!selectedFile && <p className="text-xs md:text-sm text-gray-500 mt-1">or drag and drop your report here</p>}
+                      <input type="file" className="hidden" onChange={handleFileChange} accept=".pdf,.doc,.docx" />
+                    </div>
+                  </label>
+                  <Button
+                    type="button"
+                    onClick={handleFileUpload}
+                    disabled={!selectedFile || isUploading}
+                    className="h-auto py-3 px-6 text-base font-medium min-w-[140px] bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300"
+                  >
+                    {isUploading ? (
+                      <>
+                        <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                        <span>Uploading...</span>
+                      </>
+                    ) : (
+                      <span className="flex items-center">
+                        <Upload className="h-5 w-5 mr-2" />
+                        <span>Upload File</span>
+                      </span>
+                    )}
+                  </Button>
+                </div>
+                {uploadProgress > 0 && uploadProgress < 100 && (
+                  <div className="mt-4">
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div
+                        className="bg-blue-600 h-3 rounded-full transition-all duration-300 relative overflow-hidden"
+                        style={{ width: `${uploadProgress}%` }}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-600 mt-2 text-right font-medium">{uploadProgress}% uploaded</p>
+                  </div>
+                )}
+              </div>
+              
+              {/* Uploaded Reports List */}
+              <div className="mt-8">
+                <div className="flex items-center justify-between mb-5">
+                  <h3 className="text-lg font-semibold text-gray-900">Your Reports</h3>
+                  <div className="flex items-center gap-2">
+                    <div className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                      {reports.length} {reports.length === 1 ? 'file' : 'files'}
+                    </div>
+                  </div>
+                </div>
+                
+                {reports.length === 0 ? (
+                  <div className="text-center py-8 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50">
+                    <div className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                      <FileText className="h-8 w-8 text-gray-400" />
+                    </div>
+                    <h4 className="text-base font-medium text-gray-700 mb-2">No reports uploaded yet</h4>
+                    <p className="text-sm text-gray-500">Upload your first academic report to get started</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {reports.map((report) => (
+                      <div key={report.id} className="group border border-gray-200 rounded-xl p-4 hover:border-blue-200 hover:bg-blue-50/30 hover:shadow-md transition-all duration-200">
+                        <div className="flex items-start justify-between">
+                          <div className="flex items-start space-x-4 flex-1 min-w-0">
+                            <div className="bg-blue-100 group-hover:bg-blue-200 p-3 rounded-lg transition-colors">
+                              <FileText className="h-6 w-6 text-blue-600" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-semibold text-gray-900 truncate group-hover:text-blue-900 transition-colors text-base">
+                                {report.name}
+                              </h4>
+                              <div className="flex items-center space-x-4 mt-2">
+                                <div className="flex items-center space-x-1">
+                                  <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                                  <span className="text-sm text-gray-600 font-medium">
+                                    {new Date(report.uploadDate).toLocaleDateString('en-US', {
+                                      year: 'numeric',
+                                      month: 'short',
+                                      day: 'numeric'
+                                    })}
+                                  </span>
+                                </div>
+                                <div className="flex items-center space-x-1">
+                                  <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
+                                  <span className="text-sm text-gray-600 font-medium">{report.size}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-2 ml-4">
+                            <a
+                              href={report.url}
+                              download
+                              className="p-3 sm:p-2.5 text-gray-500 hover:text-green-600 rounded-xl sm:rounded-lg hover:bg-green-50 border border-transparent hover:border-green-200 transition-all duration-200 group/download min-h-[44px] min-w-[44px] sm:min-h-[auto] sm:min-w-[auto] flex items-center justify-center"
+                              title="Download report"
+                            >
+                              <Download className="h-6 w-6 sm:h-5 sm:w-5 group-hover/download:scale-110 transition-transform" />
+                            </a>
+                            <MobileIconButton
+                              icon={X}
+                              onClick={async (e) => {
+                                e.preventDefault()
+                                await handleDeleteReport(report.id, report.name)
+                              }}
+                              variant="delete"
+                              title="Delete report"
+                              disabled={isUploading}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </>

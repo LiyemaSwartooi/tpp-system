@@ -1086,51 +1086,76 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
 
       {/* Reports Dialog */}
       <Dialog open={viewingReports} onOpenChange={setViewingReports}>
-        <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>
-              Student Reports - {student.name}
-            </DialogTitle>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-hidden">
+          <DialogHeader className="pb-4 border-b border-gray-100">
+            <div className="flex items-center gap-3">
+              <div className="bg-blue-100 p-2.5 rounded-xl">
+                <FileText className="h-6 w-6 text-blue-600" />
+              </div>
+              <div>
+                <DialogTitle className="text-xl font-semibold text-gray-900">
+                  Academic Reports
+                </DialogTitle>
+                <p className="text-sm text-gray-600 mt-1">
+                  {student.name} • {reports.length} {reports.length === 1 ? 'report' : 'reports'}
+                </p>
+              </div>
+            </div>
           </DialogHeader>
 
-          <div className="space-y-4">
+          <div className="overflow-y-auto max-h-[calc(90vh-120px)] p-1">
             {reports.length === 0 ? (
-              <div className="text-center py-8 border border-dashed rounded-lg">
-                <FileText className="mx-auto h-10 w-10 text-gray-400" />
-                <p className="mt-2 text-gray-600">No reports available for this student</p>
+              <div className="text-center py-12">
+                <div className="bg-gray-50 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                  <FileText className="h-8 w-8 text-gray-400" />
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">No reports available</h3>
+                <p className="text-gray-600">This student hasn't uploaded any academic reports yet.</p>
               </div>
             ) : (
-              <div className="space-y-2">
+              <div className="space-y-3">
                 {reports.map((report) => (
-                  <div key={report.id} className="border rounded-lg p-4 hover:bg-gray-50 transition-colors">
+                  <div key={report.id} className="group border border-gray-200 rounded-xl p-5 hover:border-blue-200 hover:bg-blue-50/30 transition-all duration-200">
                     <div className="flex items-start justify-between">
-                      <div className="flex items-start space-x-3">
-                        <div className="bg-blue-50 p-2 rounded-lg">
-                          <FileText className="h-5 w-5 text-blue-600" />
+                      <div className="flex items-start space-x-4 flex-1 min-w-0">
+                        <div className="bg-blue-100 group-hover:bg-blue-200 p-3 rounded-lg transition-colors">
+                          <FileText className="h-6 w-6 text-blue-600" />
                         </div>
-                        <div>
-                          <p className="font-medium text-gray-900">{report.name}</p>
-                          <div className="flex items-center space-x-3 mt-1">
-                            <span className="text-xs text-gray-500">
-                              {new Date(report.uploadDate).toLocaleDateString()}
-                            </span>
-                            <span className="text-xs text-gray-400">•</span>
-                            <span className="text-xs text-gray-500">{report.size}</span>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-semibold text-gray-900 truncate group-hover:text-blue-900 transition-colors">
+                            {report.name}
+                          </h4>
+                          <div className="flex items-center space-x-4 mt-2">
+                            <div className="flex items-center space-x-1">
+                              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
+                              <span className="text-sm text-gray-600">
+                                {new Date(report.uploadDate).toLocaleDateString('en-US', {
+                                  year: 'numeric',
+                                  month: 'short',
+                                  day: 'numeric'
+                                })}
+                              </span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <div className="w-1.5 h-1.5 bg-gray-400 rounded-full"></div>
+                              <span className="text-sm text-gray-600">{report.size}</span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      
+                      <div className="flex items-center space-x-2 ml-4">
                         <Button 
                           variant="outline" 
                           size="sm"
                           onClick={() => window.open(report.url, '_blank')}
-                          className="flex items-center gap-1"
+                          className="flex items-center gap-2 border-gray-200 hover:border-blue-300 hover:bg-blue-50 group-hover:shadow-sm transition-all"
                         >
                           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                           </svg>
-                          View
+                          <span className="hidden sm:inline">View</span>
                         </Button>
                         <Button 
                           variant="outline" 
@@ -1144,12 +1169,12 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
                             link.click()
                             document.body.removeChild(link)
                           }}
-                          className="flex items-center gap-1"
+                          className="flex items-center gap-2 border-gray-200 hover:border-green-300 hover:bg-green-50 group-hover:shadow-sm transition-all"
                         >
                           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                           </svg>
-                          Download
+                          <span className="hidden sm:inline">Download</span>
                         </Button>
                       </div>
                     </div>
@@ -1158,6 +1183,16 @@ export const StudentDetails: React.FC<StudentDetailsProps> = ({
               </div>
             )}
           </div>
+          
+          {/* Enhanced footer with helpful info */}
+          {reports.length > 0 && (
+            <div className="border-t border-gray-100 pt-4 mt-4">
+              <div className="flex items-center justify-between text-sm text-gray-600">
+                <span>Total: {reports.length} {reports.length === 1 ? 'report' : 'reports'}</span>
+                <span>Click View to open in new tab or Download to save locally</span>
+              </div>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>
