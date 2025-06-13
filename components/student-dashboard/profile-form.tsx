@@ -1546,8 +1546,8 @@ export function ProfileForm() {
         <div className="border-b border-gray-200 mx-6"></div>
         <CardContent className="pt-6 px-6 pb-8">
           {/* File Upload Section */}
-          <div className="bg-white p-4 sm:p-5 lg:p-6 rounded-xl border border-gray-100 shadow-sm">
-            <div className="space-y-5">
+          <div className="bg-white p-3 sm:p-5 lg:p-6 rounded-xl border border-gray-100 shadow-sm">
+            <div className="space-y-4 sm:space-y-5">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">Upload New Report</h3>
                 <p className="text-sm text-gray-600 mb-4">Supported formats: PDF, DOC, DOCX (Maximum size: 10MB)</p>
@@ -1601,8 +1601,8 @@ export function ProfileForm() {
               </div>
               
               {/* Uploaded Reports List */}
-              <div className="mt-8">
-                <div className="flex items-center justify-between mb-5">
+              <div className="mt-6 sm:mt-8">
+                <div className="flex items-center justify-between mb-3 sm:mb-5">
                   <h3 className="text-lg font-semibold text-gray-900">Your Reports</h3>
                   <div className="flex items-center gap-2">
                     <div className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
@@ -1612,52 +1612,46 @@ export function ProfileForm() {
                 </div>
                 
                 {reports.length === 0 ? (
-                  <div className="text-center py-8 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50">
-                    <div className="bg-gray-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                      <FileText className="h-8 w-8 text-gray-400" />
+                  <div className="text-center py-6 sm:py-8 border-2 border-dashed border-gray-200 rounded-xl bg-gray-50/50">
+                    <div className="bg-gray-100 rounded-full w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                      <FileText className="h-6 w-6 sm:h-8 sm:w-8 text-gray-400" />
                     </div>
-                    <h4 className="text-base font-medium text-gray-700 mb-2">No reports uploaded yet</h4>
-                    <p className="text-sm text-gray-500">Upload your first academic report to get started</p>
+                    <h4 className="text-sm sm:text-base font-medium text-gray-700 mb-1 sm:mb-2">No reports uploaded yet</h4>
+                    <p className="text-xs sm:text-sm text-gray-500">Upload your first academic report to get started</p>
                   </div>
                 ) : (
-                  <div className="space-y-3">
+                  <div className="space-y-2 sm:space-y-3">
                     {reports.map((report) => (
-                      <div key={report.id} className="group border border-gray-200 rounded-xl p-4 hover:border-blue-200 hover:bg-blue-50/30 hover:shadow-md transition-all duration-200">
-                        <div className="flex items-start justify-between">
-                          <div className="flex items-start space-x-4 flex-1 min-w-0">
-                            <div className="bg-blue-100 group-hover:bg-blue-200 p-3 rounded-lg transition-colors">
-                              <FileText className="h-6 w-6 text-blue-600" />
+                      <div key={report.id} className="group border border-gray-200 rounded-lg sm:rounded-xl p-2.5 sm:p-4 hover:border-blue-200 hover:bg-blue-50/30 hover:shadow-md transition-all duration-200">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2.5 sm:space-x-4 flex-1 min-w-0">
+                            <div className="bg-blue-100 group-hover:bg-blue-200 p-2 sm:p-3 rounded-md sm:rounded-lg transition-colors flex-shrink-0">
+                              <FileText className="h-4 w-4 sm:h-6 sm:w-6 text-blue-600" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-semibold text-gray-900 truncate group-hover:text-blue-900 transition-colors text-base">
+                              <h4 className="font-medium sm:font-semibold text-gray-900 truncate group-hover:text-blue-900 transition-colors text-sm sm:text-base leading-tight">
                                 {report.name}
                               </h4>
-                              <div className="flex items-center space-x-4 mt-2">
-                                <div className="flex items-center space-x-1">
-                                  <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                                  <span className="text-sm text-gray-600 font-medium">
-                                    {new Date(report.uploadDate).toLocaleDateString('en-US', {
-                                      year: 'numeric',
-                                      month: 'short',
-                                      day: 'numeric'
-                                    })}
-                                  </span>
-                                </div>
-                                <div className="flex items-center space-x-1">
-                                  <div className="w-2 h-2 bg-gray-400 rounded-full"></div>
-                                  <span className="text-sm text-gray-600 font-medium">{report.size}</span>
-                                </div>
+                              <div className="flex items-center space-x-2 sm:space-x-4 mt-1">
+                                <span className="text-xs sm:text-sm text-gray-600">
+                                  {new Date(report.uploadDate).toLocaleDateString('en-US', {
+                                    month: 'short',
+                                    day: 'numeric'
+                                  })}
+                                </span>
+                                <span className="text-xs text-gray-400">•</span>
+                                <span className="text-xs sm:text-sm text-gray-600">{report.size}</span>
                               </div>
                             </div>
                           </div>
-                          <div className="flex items-center space-x-2 ml-4">
+                          <div className="flex items-center space-x-1 sm:space-x-2 ml-2 sm:ml-4 flex-shrink-0">
                             <a
                               href={report.url}
                               download
-                              className="p-3 sm:p-2.5 text-gray-500 hover:text-green-600 rounded-xl sm:rounded-lg hover:bg-green-50 border border-transparent hover:border-green-200 transition-all duration-200 group/download min-h-[44px] min-w-[44px] sm:min-h-[auto] sm:min-w-[auto] flex items-center justify-center"
+                              className="p-2 sm:p-2.5 text-gray-500 hover:text-green-600 rounded-lg hover:bg-green-50 border border-transparent hover:border-green-200 transition-all duration-200 group/download min-h-[40px] min-w-[40px] sm:min-h-[44px] sm:min-w-[44px] flex items-center justify-center"
                               title="Download report"
                             >
-                              <Download className="h-6 w-6 sm:h-5 sm:w-5 group-hover/download:scale-110 transition-transform" />
+                              <Download className="h-4 w-4 sm:h-5 sm:w-5 group-hover/download:scale-110 transition-transform" />
                             </a>
                             <MobileIconButton
                               icon={X}
@@ -1668,6 +1662,7 @@ export function ProfileForm() {
                               variant="delete"
                               title="Delete report"
                               disabled={isUploading}
+                              size="sm"
                             />
                           </div>
                         </div>

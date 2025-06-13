@@ -119,10 +119,10 @@ export function DashboardLayout({ children, sidebarContent, userInfo, portalType
         {/* Sidebar */}
         <div
           className={cn(
-            "bg-white border-r border-gray-200 flex flex-col transition-all duration-300 relative",
+            "bg-white border-r border-gray-200 flex flex-col transition-all duration-300 relative min-h-full",
             isCollapsed ? "w-[70px]" : "w-64",
             "hidden md:flex",
-            isMobileSidebarOpen && "flex w-80 sm:w-64 absolute inset-y-0 left-0 z-50 md:relative md:w-64"
+            isMobileSidebarOpen && "flex w-80 sm:w-64 fixed inset-y-0 left-0 z-50 md:relative md:w-64 mobile-sidebar"
           )}
         >
           {/* Toggle Button for Desktop */}

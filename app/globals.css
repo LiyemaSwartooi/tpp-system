@@ -96,6 +96,23 @@
       background-color: rgba(254, 226, 226, 1);
       border-color: rgba(248, 113, 113, 0.5);
     }
+    
+    /* Sidebar mobile improvements */
+    .mobile-sidebar {
+      height: 100vh !important;
+      height: 100dvh !important; /* Dynamic viewport height for mobile browsers */
+    }
+    
+    /* Compact mobile layouts */
+    .mobile-compact-card {
+      padding: 0.625rem !important;
+      margin-bottom: 0.5rem !important;
+    }
+    
+    .mobile-compact-text {
+      font-size: 0.75rem !important;
+      line-height: 1rem !important;
+    }
   }
 }
 

@@ -31,7 +31,7 @@ export const MobileIconButton: React.FC<MobileIconButtonProps> = ({
   }
   
   const sizeClasses = {
-    sm: 'p-2 sm:p-1.5 min-h-[40px] min-w-[40px] sm:min-h-[32px] sm:min-w-[32px] rounded-lg sm:rounded-md',
+    sm: 'p-2 sm:p-2 min-h-[40px] min-w-[40px] sm:min-h-[36px] sm:min-w-[36px] rounded-lg sm:rounded-md',
     md: 'p-3 sm:p-2.5 min-h-[44px] min-w-[44px] sm:min-h-[auto] sm:min-w-[auto] rounded-xl sm:rounded-lg',
     lg: 'p-4 sm:p-3 min-h-[48px] min-w-[48px] sm:min-h-[auto] sm:min-w-[auto] rounded-xl sm:rounded-lg'
   }
