@@ -523,6 +523,58 @@ export function ProfileForm() {
     return text.trim().split(/\s+/).filter(word => word.length > 0).length;
   };
 
+  // Function to count characters (excluding spaces for more accurate count)
+  const countCharacters = (text: string): number => {
+    if (!text) return 0;
+    return text.length;
+  };
+
+  // Function to count characters without spaces
+  const countCharactersNoSpaces = (text: string): number => {
+    if (!text) return 0;
+    return text.replace(/\s/g, '').length;
+  };
+
+  // Component for displaying word and character count
+  const TextCounter = ({ text, showWordCount = true, showCharCount = true, wordLimit }: { 
+    text: string; 
+    showWordCount?: boolean; 
+    showCharCount?: boolean; 
+    wordLimit?: { min?: number; max?: number }; 
+  }) => {
+    const words = countWords(text);
+    const chars = countCharacters(text);
+    const charsNoSpaces = countCharactersNoSpaces(text);
+    
+    const getWordCountColor = () => {
+      if (!wordLimit) return 'text-gray-500';
+      if (wordLimit.min && words < wordLimit.min) return 'text-red-500';
+      if (wordLimit.max && words > wordLimit.max) return 'text-red-500';
+      return 'text-green-600';
+    };
+
+    return (
+      <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm">
+        {showCharCount && (
+          <span className="text-gray-500">
+            Characters: <span className="font-medium">{chars}</span> 
+            <span className="text-gray-400 ml-1">({charsNoSpaces} without spaces)</span>
+          </span>
+        )}
+        {showWordCount && (
+          <span className={getWordCountColor()}>
+            Words: <span className="font-medium">{words}</span>
+            {wordLimit && (
+              <span className="ml-1">
+                / {wordLimit.min}-{wordLimit.max} words
+              </span>
+            )}
+          </span>
+        )}
+      </div>
+    );
+  };
+
   // Update handleSubmit to include new validations
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -1365,8 +1417,23 @@ export function ProfileForm() {
                     </div>
                   </div>
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4">
-                    <Label>Family Members' Occupation and Education</Label>
-                    <Textarea id="family_members_occupation" name="family_members_occupation" value={profile.family_members_occupation || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="Example: A. Father/Guardian | Soldier | University PhD B. Mother/Guardian | Teacher | Diploma C. Sister | Student | Grade 12" rows={3} />
+                    <Label htmlFor="family_members_occupation">Family Members' Occupation and Education <span className="text-red-500">*</span></Label>
+                    <Textarea 
+                      id="family_members_occupation" 
+                      name="family_members_occupation" 
+                      value={profile.family_members_occupation || ''} 
+                      onChange={handleChange} 
+                      onKeyDown={handleTextareaKeyDown} 
+                      placeholder="Example: A. Father/Guardian | Soldier | University PhD B. Mother/Guardian | Teacher | Diploma C. Sister | Student | Grade 12" 
+                      rows={3}
+                      className={getFieldError('family_members_occupation') ? "border-red-500" : ""}
+                    />
+                    <div className="mt-2">
+                      <TextCounter text={profile.family_members_occupation || ''} />
+                    </div>
+                    {getFieldError('family_members_occupation') && (
+                      <p className="text-sm text-red-500 mt-1">This field is required</p>
+                    )}
                   </div>
                 </section>
               )}
@@ -1384,38 +1451,129 @@ export function ProfileForm() {
                 <section className="p-4 pt-0 bg-white rounded-b">
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="positive_impact">Person who had a positive impact on you</Label>
-                      <Textarea id="positive_impact" name="positive_impact" value={profile.positive_impact || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="Describe a person who has had a positive impact on you..." rows={2} />
+                      <Label htmlFor="positive_impact">Person who had a positive impact on you <span className="text-red-500">*</span></Label>
+                      <Textarea 
+                        id="positive_impact" 
+                        name="positive_impact" 
+                        value={profile.positive_impact || ''} 
+                        onChange={handleChange} 
+                        onKeyDown={handleTextareaKeyDown} 
+                        placeholder="Describe a person who has had a positive impact on you..." 
+                        rows={2}
+                        className={getFieldError('positive_impact') ? "border-red-500" : ""}
+                      />
+                      <TextCounter text={profile.positive_impact || ''} />
+                      {getFieldError('positive_impact') && (
+                        <p className="text-sm text-red-500">This field is required</p>
+                      )}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="plans_after_school">Plans after school</Label>
-                      <Textarea id="plans_after_school" name="plans_after_school" value={profile.plans_after_school || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="What are your plans after you complete school?" rows={2} />
+                      <Label htmlFor="plans_after_school">Plans after school <span className="text-red-500">*</span></Label>
+                      <Textarea 
+                        id="plans_after_school" 
+                        name="plans_after_school" 
+                        value={profile.plans_after_school || ''} 
+                        onChange={handleChange} 
+                        onKeyDown={handleTextareaKeyDown} 
+                        placeholder="What are your plans after you complete school?" 
+                        rows={2}
+                        className={getFieldError('plans_after_school') ? "border-red-500" : ""}
+                      />
+                      <TextCounter text={profile.plans_after_school || ''} />
+                      {getFieldError('plans_after_school') && (
+                        <p className="text-sm text-red-500">This field is required</p>
+                      )}
                     </div>
                   </div>
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="career_interest">Career(s) or job(s) interested in and why <span className="text-red-500">*</span></Label>
-                      <Textarea id="career_interest" name="career_interest" value={profile.career_interest || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="What career(s) or job(s) are you interested in and why?" rows={2} />
+                      <Textarea 
+                        id="career_interest" 
+                        name="career_interest" 
+                        value={profile.career_interest || ''} 
+                        onChange={handleChange} 
+                        onKeyDown={handleTextareaKeyDown} 
+                        placeholder="What career(s) or job(s) are you interested in and why?" 
+                        rows={2}
+                        className={getFieldError('career_interest') ? "border-red-500" : ""}
+                      />
+                      <TextCounter text={profile.career_interest || ''} />
+                      {getFieldError('career_interest') && (
+                        <p className="text-sm text-red-500">This field is required</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="personality_statements">Three statements about your personality/character <span className="text-red-500">*</span></Label>
-                      <Textarea id="personality_statements" name="personality_statements" value={profile.personality_statements || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="Write three statements that describe your personality or character..." rows={2} />
+                      <Textarea 
+                        id="personality_statements" 
+                        name="personality_statements" 
+                        value={profile.personality_statements || ''} 
+                        onChange={handleChange} 
+                        onKeyDown={handleTextareaKeyDown} 
+                        placeholder="Write three statements that describe your personality or character..." 
+                        rows={2}
+                        className={getFieldError('personality_statements') ? "border-red-500" : ""}
+                      />
+                      <TextCounter text={profile.personality_statements || ''} />
+                      {getFieldError('personality_statements') && (
+                        <p className="text-sm text-red-500">This field is required</p>
+                      )}
                     </div>
                   </div>
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="successful_community_member">Describe a successful community member and why <span className="text-red-500">*</span></Label>
-                      <Textarea id="successful_community_member" name="successful_community_member" value={profile.successful_community_member || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="Describe any member of your community who you consider to be successful and why..." rows={2} />
+                      <Textarea 
+                        id="successful_community_member" 
+                        name="successful_community_member" 
+                        value={profile.successful_community_member || ''} 
+                        onChange={handleChange} 
+                        onKeyDown={handleTextareaKeyDown} 
+                        placeholder="Describe any member of your community who you consider to be successful and why..." 
+                        rows={2}
+                        className={getFieldError('successful_community_member') ? "border-red-500" : ""}
+                      />
+                      <TextCounter text={profile.successful_community_member || ''} />
+                      {getFieldError('successful_community_member') && (
+                        <p className="text-sm text-red-500">This field is required</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="tips_for_friend">Three tips for a friend to succeed in TPP <span className="text-red-500">*</span></Label>
-                      <Textarea id="tips_for_friend" name="tips_for_friend" value={profile.tips_for_friend || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="List three tips that you would give to a friend to help them succeed in a programme like the TPP..." rows={2} />
+                      <Textarea 
+                        id="tips_for_friend" 
+                        name="tips_for_friend" 
+                        value={profile.tips_for_friend || ''} 
+                        onChange={handleChange} 
+                        onKeyDown={handleTextareaKeyDown} 
+                        placeholder="List three tips that you would give to a friend to help them succeed in a programme like the TPP..." 
+                        rows={2}
+                        className={getFieldError('tips_for_friend') ? "border-red-500" : ""}
+                      />
+                      <TextCounter text={profile.tips_for_friend || ''} />
+                      {getFieldError('tips_for_friend') && (
+                        <p className="text-sm text-red-500">This field is required</p>
+                      )}
                     </div>
                   </div>
                   <div className="border rounded-xl bg-gray-50 p-4 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label htmlFor="kimberley_challenges">Challenges you expect to face in Kimberley <span className="text-red-500">*</span></Label>
-                      <Textarea id="kimberley_challenges" name="kimberley_challenges" value={profile.kimberley_challenges || ''} onChange={handleChange} onKeyDown={handleTextareaKeyDown} placeholder="What challenges would you expect to face staying in Kimberley?" rows={2} />
+                      <Textarea 
+                        id="kimberley_challenges" 
+                        name="kimberley_challenges" 
+                        value={profile.kimberley_challenges || ''} 
+                        onChange={handleChange} 
+                        onKeyDown={handleTextareaKeyDown} 
+                        placeholder="What challenges would you expect to face staying in Kimberley?" 
+                        rows={2}
+                        className={getFieldError('kimberley_challenges') ? "border-red-500" : ""}
+                      />
+                      <TextCounter text={profile.kimberley_challenges || ''} />
+                      {getFieldError('kimberley_challenges') && (
+                        <p className="text-sm text-red-500">This field is required</p>
+                      )}
                     </div>
             <div className="space-y-2 md:col-span-2">
                       <Label htmlFor="original_essay">Original Essay (300–500 words) <span className="text-red-500">*</span></Label>
@@ -1429,19 +1587,20 @@ export function ProfileForm() {
                         rows={5}
                         className={getFieldError('original_essay') ? "border-red-500" : ""}
                       />
-                      <div className="flex justify-between items-center">
-                        <p className="text-sm text-gray-500">
-                          Word count: {countWords(profile.original_essay || '')} / 300-500 words
-                        </p>
-                      {getFieldError('original_essay') && (
-                          <p className="text-sm text-red-500">
+                      <div className="mt-2">
+                        <TextCounter 
+                          text={profile.original_essay || ''} 
+                          wordLimit={{ min: 300, max: 500 }}
+                        />
+                        {getFieldError('original_essay') && (
+                          <p className="text-sm text-red-500 mt-1">
                             {countWords(profile.original_essay || '') < 300 
                               ? 'Essay must be at least 300 words' 
                               : countWords(profile.original_essay || '') > 500 
                                 ? 'Essay cannot exceed 500 words'
                                 : 'Essay is required'}
                           </p>
-                      )}
+                        )}
                       </div>
                     </div>
                   </div>
