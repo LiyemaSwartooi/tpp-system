@@ -77,7 +77,8 @@ const allSubjects: AllSubject[] = [
   { id: "subject-21", name: "Electrical Technology" },
   { id: "subject-22", name: "Mechanical Technology (Automotive)" },
   { id: "subject-23", name: "Electrical Technology (Power Systems)" },
-  { id: "subject-24", name: "Mechanical Technology (Welding)" }
+  { id: "subject-24", name: "Mechanical Technology (Welding)" },
+  { id: "subject-25", name: "Civil Technology (Construction)" }
 ]
 
 export default function StudentDashboard() {
