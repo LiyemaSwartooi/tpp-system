@@ -73,7 +73,7 @@ const allSubjects: AllSubject[] = [
   { id: "subject-17", name: "English First Additional Language" },
   { id: "subject-18", name: "Mathematical Literacy" },
   { id: "subject-19", name: "Engineering Graphics and Design" },
-  { id: "subject-20", name: "Tshwane" },
+  { id: "subject-20", name: "Setswana" },
   { id: "subject-21", name: "Electrical Technology" }
 ]
 
